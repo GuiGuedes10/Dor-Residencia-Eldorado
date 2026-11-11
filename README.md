@@ -188,13 +188,31 @@ O runner standalone roda em Python puro (sem PyTorch/Selenium), provando o camin
 
 ## 🗺️ Roadmap
 
+**✅ Concluído**
 - [x] Pipeline Python modular e testado (áudio → neural → navegação)
-- [x] Extensão funcional com modal acessível e guia visual
+- [x] Extensão funcional com modal acessível e guia visual (escala de cor divergente)
 - [x] Organização de engenharia (CI, licença, docs, ADRs)
+
+**🎯 Curto prazo — avaliação e dados** _(o que hoje falta para medir se o modelo melhora)_
+- [ ] **Métrica de acerto do link (success@1 / success@4):** o link certo apareceu? foi o 1º? É a métrica que mede o produto, não só o classificador.
+- [ ] **Avaliação formal do classificador:** matriz de confusão e precisão/recall/F1 por classe — além da acurácia.
 - [ ] Dataset de voz real e retreino do classificador de tópicos (hoje ~52 frases)
+- [ ] **Loop de correção do usuário → novos exemplos** (aprendizado ativo): registrar quando a pessoa escolhe diferente do sugerido e reusar no treino.
+- [ ] **Testes automatizados da extensão** (lógica JS: ranking, cor, `topicOf`) — hoje só o Python tem testes.
+
+**🔧 Médio prazo — robustez e produto**
+- [ ] **Robustez a SPAs / conteúdo dinâmico:** `MutationObserver` + re-ranqueamento quando a página muda.
+- [ ] **Embeddings de elementos do DOM** (sentence-transformers) no lugar do ranking lexical — fecha a visão original do projeto.
+- [ ] Onboarding de primeiro uso + personalização de acessibilidade (tamanho de fonte, velocidade da voz, alto contraste)
 - [ ] Mapa verificado por instituição/estado (URLs e seções oficiais)
-- [ ] Testes de acessibilidade com usuários reais (WCAG 2.2 AA)
 - [ ] Novos tópicos: cursos de extensão/FIC e concursos (docente/técnico)
+
+**🌐 Longo prazo — distribuição, validação e ética**
+- [ ] Publicar na Chrome Web Store / Edge Add-ons + empacotamento e CI de release
+- [ ] Testes de acessibilidade com usuários reais (WCAG 2.2 AA), incluindo leitores de tela (NVDA / VoiceOver / TalkBack)
+- [ ] **Equidade de fala:** validar sotaques variados, idosos e fala atípica/disfluente
+- [ ] **Privacidade / LGPD:** consentimento explícito (microfone) e política de dados
+- [ ] Relatório / pôster final da residência com métricas (confusion matrix, success@k)
 
 ---
 
