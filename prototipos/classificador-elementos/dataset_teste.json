@@ -1,0 +1,1289 @@
+{
+"casos": [
+{
+"intencao": "quero ser fonoaudióloga",
+"alvo": "fonoaudiologia",
+"tipo": "semantico"
+},
+{
+"intencao": "gostaria de programar sistemas",
+"alvo": "engenharia-de-software",
+"tipo": "semantico"
+},
+{
+"intencao": "gostaria de cuidar da alimentação das pessoas",
+"alvo": "nutricao",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é coordenar projetos de TI",
+"alvo": "gestao-da-tecnologia-da-informacao",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo cozinhar profissionalmente",
+"alvo": "gastronomia",
+"tipo": "semantico"
+},
+{
+"intencao": "tenho vontade de criar artes digitais",
+"alvo": "design-digital",
+"tipo": "semantico"
+},
+{
+"intencao": "informações sobre terapia ocupacional",
+"alvo": "terapia-ocupacional",
+"tipo": "lexical"
+},
+{
+"intencao": "economia",
+"alvo": "ciencias-economicas",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar como contador",
+"alvo": "ciencias-contabeis",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo trabalhar num hospital",
+"alvo": "medicina",
+"tipo": "semantico"
+},
+{
+"intencao": "quero estudar matemática",
+"alvo": "matematica",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho interesse em gabarito",
+"alvo": "vestibular-2027",
+"tipo": "lexical"
+},
+{
+"intencao": "sonho em ser farmacêutica",
+"alvo": "farmacia",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer segurança da informação",
+"alvo": "ciberseguranca",
+"tipo": "lexical"
+},
+{
+"intencao": "gostaria de ver o resultado do vestibular",
+"alvo": "vestibular-2027",
+"tipo": "semantico"
+},
+{
+"intencao": "quero cursar ciências contábeis",
+"alvo": "ciencias-contabeis",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho interesse em engenharia elétrica",
+"alvo": "engenharia-eletrica",
+"tipo": "lexical"
+},
+{
+"intencao": "quero me formar em ciência de dados e inteligência artificial",
+"alvo": "ciencia-de-dados-e-inteligencia-artificial",
+"tipo": "lexical"
+},
+{
+"intencao": "sonho em ser enfermeiro",
+"alvo": "enfermagem",
+"tipo": "semantico"
+},
+{
+"intencao": "quero cursar jogos digitais",
+"alvo": "design-de-games",
+"tipo": "lexical"
+},
+{
+"intencao": "quero fazer administração – finanças corporativas e mercado de capitais",
+"alvo": "administracao-financas-corporativas-e-mercado-de-capitais",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo fazer remédios",
+"alvo": "farmacia",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo ser analista de segurança da informação",
+"alvo": "ciberseguranca",
+"tipo": "semantico"
+},
+{
+"intencao": "quero trabalhar como advogado",
+"alvo": "direito",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de engenharia de produção",
+"alvo": "engenharia-de-producao",
+"tipo": "lexical"
+},
+{
+"intencao": "quero consultar o gabarito da prova",
+"alvo": "vestibular-2027",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer matemática",
+"alvo": "matematica",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho interesse em administração - marketing e inovação",
+"alvo": "administracao-marketing-e-inovacao",
+"tipo": "lexical"
+},
+{
+"intencao": "quero estudar engenharia biomédica",
+"alvo": "engenharia-biomedica",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é criar campanhas de publicidade",
+"alvo": "publicidade-e-propaganda",
+"tipo": "semantico"
+},
+{
+"intencao": "informações sobre engenharia civil",
+"alvo": "engenharia-civil",
+"tipo": "lexical"
+},
+{
+"intencao": "leis",
+"alvo": "direito",
+"tipo": "lexical"
+},
+{
+"intencao": "sonho em ser designer de moda",
+"alvo": "design-de-moda",
+"tipo": "semantico"
+},
+{
+"intencao": "gostaria de ajudar quem tem dificuldade de falar",
+"alvo": "fonoaudiologia",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é fazer terapia com pacientes",
+"alvo": "psicologia",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo planejar cidades",
+"alvo": "arquitetura-e-urbanismo",
+"tipo": "semantico"
+},
+{
+"intencao": "quero trabalhar como designer de games",
+"alvo": "design-de-games",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer história",
+"alvo": "historia-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "gostaria de melhorar a produção no campo",
+"alvo": "engenharia-agronomica",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de engenharia de controle e automação",
+"alvo": "engenharia-de-controle-e-automacao",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar como assistente social",
+"alvo": "servico-social",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em química",
+"alvo": "quimica",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar com impostos e balanços",
+"alvo": "ciencias-contabeis",
+"tipo": "semantico"
+},
+{
+"intencao": "tenho interesse em leis",
+"alvo": "direito",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho vontade de conhecer os critérios de seleção",
+"alvo": "manual-do-candidato",
+"tipo": "semantico"
+},
+{
+"intencao": "biomedicina",
+"alvo": "biomedicina",
+"tipo": "lexical"
+},
+{
+"intencao": "quero cursar biomedicina",
+"alvo": "biomedicina",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho interesse em fisioterapia",
+"alvo": "fisioterapia",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar como especialista em segurança",
+"alvo": "ciberseguranca",
+"tipo": "semantico"
+},
+{
+"intencao": "sonho em ser médico",
+"alvo": "medicina",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer administração",
+"alvo": "administracao",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo ajudar comunidades carentes",
+"alvo": "servico-social",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de ciências jurídicas",
+"alvo": "direito",
+"tipo": "lexical"
+},
+{
+"intencao": "quero ser cozinheiro",
+"alvo": "gastronomia",
+"tipo": "semantico"
+},
+{
+"intencao": "quero ser enfermeiro",
+"alvo": "enfermagem",
+"tipo": "semantico"
+},
+{
+"intencao": "quero estudar tecnologia da informação para negócios digitais",
+"alvo": "tecnologia-da-informacao-para-negocios-digitais",
+"tipo": "lexical"
+},
+{
+"intencao": "relações internacionais",
+"alvo": "relacoes-internacionais",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é seguir a carreira jurídica",
+"alvo": "direito",
+"tipo": "semantico"
+},
+{
+"intencao": "informações sobre relações públicas",
+"alvo": "relacoes-publicas",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é fazer remédios",
+"alvo": "farmacia",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em jornalismo",
+"alvo": "jornalismo",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é ser professor de história",
+"alvo": "historia-licenciatura",
+"tipo": "semantico"
+},
+{
+"intencao": "quero trabalhar como diplomata",
+"alvo": "relacoes-internacionais",
+"tipo": "semantico"
+},
+{
+"intencao": "quero ser diretor de cinema",
+"alvo": "cinema-e-audiovisual",
+"tipo": "semantico"
+},
+{
+"intencao": "quero ler o edital",
+"alvo": "manual-do-candidato",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer resultado do vestibular",
+"alvo": "vestibular-2027",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é tratar bichos de estimação",
+"alvo": "medicina-veterinaria",
+"tipo": "semantico"
+},
+{
+"intencao": "relações públicas",
+"alvo": "relacoes-publicas",
+"tipo": "lexical"
+},
+{
+"intencao": "gostaria de trabalhar com produção de vídeo",
+"alvo": "cinema-e-audiovisual",
+"tipo": "semantico"
+},
+{
+"intencao": "quero estudar administração – comércio exterior",
+"alvo": "administracao-comercio-exterior",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho vontade de cuidar da imagem de empresas",
+"alvo": "relacoes-publicas",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de destaques",
+"alvo": "destaque",
+"tipo": "lexical"
+},
+{
+"intencao": "quero cozinhar profissionalmente",
+"alvo": "gastronomia",
+"tipo": "semantico"
+},
+{
+"intencao": "quero cuidar da saúde das pessoas",
+"alvo": "medicina",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de ciências biológicas",
+"alvo": "ciencias-biologicas-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "quero estudar educação física",
+"alvo": "educacao-fisica-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é cobrir reportagens",
+"alvo": "jornalismo",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer enfermagem",
+"alvo": "enfermagem",
+"tipo": "lexical"
+},
+{
+"intencao": "quero me formar em design digital",
+"alvo": "design-digital",
+"tipo": "lexical"
+},
+{
+"intencao": "quero estudar livretes de questões e gabaritos - vestibular 2027 1º semestre",
+"alvo": "vestibular-2027",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho vontade de trabalhar com educação",
+"alvo": "pedagogia",
+"tipo": "semantico"
+},
+{
+"intencao": "sonho em ser nutricionista",
+"alvo": "nutricao",
+"tipo": "semantico"
+},
+{
+"intencao": "quero estudar medicina veterinária",
+"alvo": "medicina-veterinaria",
+"tipo": "lexical"
+},
+{
+"intencao": "quero cursar design de games",
+"alvo": "design-de-games",
+"tipo": "lexical"
+},
+{
+"intencao": "informações sobre filosofia",
+"alvo": "filosofia-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho interesse em gastronomia",
+"alvo": "gastronomia",
+"tipo": "lexical"
+},
+{
+"intencao": "administração",
+"alvo": "administracao",
+"tipo": "lexical"
+},
+{
+"intencao": "informações sobre jornalismo",
+"alvo": "jornalismo",
+"tipo": "lexical"
+},
+{
+"intencao": "curso de engenharia química",
+"alvo": "engenharia-quimica",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho vontade de ver o resultado do vestibular",
+"alvo": "vestibular-2027",
+"tipo": "semantico"
+},
+{
+"intencao": "quero cursar administração – finanças corporativas e mercado de capitais",
+"alvo": "administracao-financas-corporativas-e-mercado-de-capitais",
+"tipo": "lexical"
+},
+{
+"intencao": "curso de fisioterapia",
+"alvo": "fisioterapia",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar como farmacêutica",
+"alvo": "farmacia",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de engenharia de software",
+"alvo": "engenharia-de-software",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo cuidar da saúde mental",
+"alvo": "psicologia",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo coordenar projetos de TI",
+"alvo": "gestao-da-tecnologia-da-informacao",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é cuidar da TI de uma empresa",
+"alvo": "sistemas-de-informacao",
+"tipo": "semantico"
+},
+{
+"intencao": "quero cursar resultado do vestibular",
+"alvo": "vestibular-2027",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar como veterinária",
+"alvo": "medicina-veterinaria",
+"tipo": "semantico"
+},
+{
+"intencao": "quero trabalhar como publicitário",
+"alvo": "publicidade-e-propaganda",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo ser fisioterapeuta",
+"alvo": "fisioterapia",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de artes visuais",
+"alvo": "artes-visuais-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo trabalhar com nutrição esportiva",
+"alvo": "nutricao",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de ciência de dados e inteligência artificial",
+"alvo": "ciencia-de-dados-e-inteligencia-artificial",
+"tipo": "lexical"
+},
+{
+"intencao": "quero ver o calendário do processo seletivo",
+"alvo": "manual-do-candidato",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em engenharia mecânica",
+"alvo": "engenharia-mecanica",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo pesquisar doenças",
+"alvo": "biomedicina",
+"tipo": "semantico"
+},
+{
+"intencao": "quero estudar segurança da informação",
+"alvo": "ciberseguranca",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é gerenciar a área de tecnologia",
+"alvo": "gestao-da-tecnologia-da-informacao",
+"tipo": "semantico"
+},
+{
+"intencao": "quero trabalhar como delegado",
+"alvo": "direito",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é cuidar da contabilidade de empresas",
+"alvo": "ciencias-contabeis",
+"tipo": "semantico"
+},
+{
+"intencao": "gostaria de projetar computadores",
+"alvo": "engenharia-de-computacao",
+"tipo": "semantico"
+},
+{
+"intencao": "quero dar aulas de história",
+"alvo": "historia-licenciatura",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de jornalismo",
+"alvo": "jornalismo",
+"tipo": "lexical"
+},
+{
+"intencao": "quero cursar economia",
+"alvo": "ciencias-economicas",
+"tipo": "lexical"
+},
+{
+"intencao": "informações sobre pedagogia",
+"alvo": "pedagogia",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo analisar o mercado financeiro",
+"alvo": "ciencias-economicas",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é cuidar da imagem de empresas",
+"alvo": "relacoes-publicas",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em economia",
+"alvo": "ciencias-economicas",
+"tipo": "lexical"
+},
+{
+"intencao": "curso de biomedicina",
+"alvo": "biomedicina",
+"tipo": "lexical"
+},
+{
+"intencao": "quero estudar cinema",
+"alvo": "cinema-e-audiovisual",
+"tipo": "lexical"
+},
+{
+"intencao": "fisioterapia",
+"alvo": "fisioterapia",
+"tipo": "lexical"
+},
+{
+"intencao": "quero estudar nutrição",
+"alvo": "nutricao",
+"tipo": "lexical"
+},
+{
+"intencao": "curso de psicologia",
+"alvo": "psicologia",
+"tipo": "lexical"
+},
+{
+"intencao": "quero me formar em medicina",
+"alvo": "medicina",
+"tipo": "lexical"
+},
+{
+"intencao": "curso de fonoaudiologia",
+"alvo": "fonoaudiologia",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar como administrador de empresas",
+"alvo": "administracao",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo ser professor de educação infantil",
+"alvo": "pedagogia",
+"tipo": "semantico"
+},
+{
+"intencao": "quero cursar tecnologia da informação para negócios digitais",
+"alvo": "tecnologia-da-informacao-para-negocios-digitais",
+"tipo": "lexical"
+},
+{
+"intencao": "engenharia de controle e automação",
+"alvo": "engenharia-de-controle-e-automacao",
+"tipo": "lexical"
+},
+{
+"intencao": "quero fazer artes visuais",
+"alvo": "artes-visuais-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho interesse em sistemas de informação",
+"alvo": "sistemas-de-informacao",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é projetar computadores",
+"alvo": "engenharia-de-computacao",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer engenharia ambiental e sanitária",
+"alvo": "engenharia-ambiental-e-sanitaria",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo criar roupas",
+"alvo": "design-de-moda",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é planejar cidades",
+"alvo": "arquitetura-e-urbanismo",
+"tipo": "semantico"
+},
+{
+"intencao": "gabarito",
+"alvo": "vestibular-2027",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho vontade de tratar problemas de fala",
+"alvo": "fonoaudiologia",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em manual do candidato",
+"alvo": "manual-do-candidato",
+"tipo": "lexical"
+},
+{
+"intencao": "quero estudar engenharia de alimentos",
+"alvo": "engenharia-de-alimentos",
+"tipo": "lexical"
+},
+{
+"intencao": "quero estudar fonoaudiologia",
+"alvo": "fonoaudiologia",
+"tipo": "lexical"
+},
+{
+"intencao": "informações sobre engenharia de computação",
+"alvo": "engenharia-de-computacao",
+"tipo": "lexical"
+},
+{
+"intencao": "quero cursar segurança digital",
+"alvo": "ciberseguranca",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar com saúde bucal",
+"alvo": "odontologia",
+"tipo": "semantico"
+},
+{
+"intencao": "informações sobre história",
+"alvo": "historia-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar como desenvolvedor de software",
+"alvo": "engenharia-de-software",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo desenhar coleções de moda",
+"alvo": "design-de-moda",
+"tipo": "semantico"
+},
+{
+"intencao": "informações sobre direito",
+"alvo": "direito",
+"tipo": "lexical"
+},
+{
+"intencao": "letras: português/inglês",
+"alvo": "letras-portugues-ingles-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "informações sobre odontologia",
+"alvo": "odontologia",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho interesse em arquitetura",
+"alvo": "arquitetura-e-urbanismo",
+"tipo": "lexical"
+},
+{
+"intencao": "quero fazer arquitetura e urbanismo",
+"alvo": "arquitetura-e-urbanismo",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho vontade de fazer filmes",
+"alvo": "cinema-e-audiovisual",
+"tipo": "semantico"
+},
+{
+"intencao": "quero cursar engenharia de software",
+"alvo": "engenharia-de-software",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho interesse em odontologia",
+"alvo": "odontologia",
+"tipo": "lexical"
+},
+{
+"intencao": "curso de letras: português/inglês",
+"alvo": "letras-portugues-ingles-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é cuidar da alimentação das pessoas",
+"alvo": "nutricao",
+"tipo": "semantico"
+},
+{
+"intencao": "gostaria de cuidar da TI de uma empresa",
+"alvo": "sistemas-de-informacao",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em terapia ocupacional",
+"alvo": "terapia-ocupacional",
+"tipo": "lexical"
+},
+{
+"intencao": "quero programar sistemas",
+"alvo": "engenharia-de-software",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de design digital",
+"alvo": "design-digital",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho vontade de proteger sistemas contra hackers",
+"alvo": "ciberseguranca",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer psicologia",
+"alvo": "psicologia",
+"tipo": "lexical"
+},
+{
+"intencao": "curso de engenharia elétrica",
+"alvo": "engenharia-eletrica",
+"tipo": "lexical"
+},
+{
+"intencao": "gostaria de saber as datas das provas",
+"alvo": "manual-do-candidato",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em publicidade e propaganda",
+"alvo": "publicidade-e-propaganda",
+"tipo": "lexical"
+},
+{
+"intencao": "manual do candidato",
+"alvo": "manual-do-candidato",
+"tipo": "lexical"
+},
+{
+"intencao": "quero estudar gastronomia",
+"alvo": "gastronomia",
+"tipo": "lexical"
+},
+{
+"intencao": "curso de sistemas de informação",
+"alvo": "sistemas-de-informacao",
+"tipo": "lexical"
+},
+{
+"intencao": "quero me formar em leis",
+"alvo": "direito",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho interesse em ciências econômicas",
+"alvo": "ciencias-economicas",
+"tipo": "lexical"
+},
+{
+"intencao": "informações sobre arquitetura",
+"alvo": "arquitetura-e-urbanismo",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é trabalhar na área da saúde",
+"alvo": "enfermagem",
+"tipo": "semantico"
+},
+{
+"intencao": "gostaria de fazer terapia com pacientes",
+"alvo": "psicologia",
+"tipo": "semantico"
+},
+{
+"intencao": "quero cursar gabarito",
+"alvo": "vestibular-2027",
+"tipo": "lexical"
+},
+{
+"intencao": "quero fazer engenharia de produção",
+"alvo": "engenharia-de-producao",
+"tipo": "lexical"
+},
+{
+"intencao": "curso de cinema",
+"alvo": "cinema-e-audiovisual",
+"tipo": "lexical"
+},
+{
+"intencao": "quero estudar engenharia ambiental e sanitária",
+"alvo": "engenharia-ambiental-e-sanitaria",
+"tipo": "lexical"
+},
+{
+"intencao": "quero me formar em gastronomia",
+"alvo": "gastronomia",
+"tipo": "lexical"
+},
+{
+"intencao": "gastronomia",
+"alvo": "gastronomia",
+"tipo": "lexical"
+},
+{
+"intencao": "quero fazer farmácia",
+"alvo": "farmacia",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é calcular estruturas de obras",
+"alvo": "engenharia-civil",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer cinema e audiovisual",
+"alvo": "cinema-e-audiovisual",
+"tipo": "lexical"
+},
+{
+"intencao": "quero ser veterinária",
+"alvo": "medicina-veterinaria",
+"tipo": "semantico"
+},
+{
+"intencao": "gostaria de cuidar dos dentes",
+"alvo": "odontologia",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo trabalhar com design gráfico",
+"alvo": "design-digital",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em engenharia química",
+"alvo": "engenharia-quimica",
+"tipo": "lexical"
+},
+{
+"intencao": "quero me formar em ciências biológicas",
+"alvo": "ciencias-biologicas-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo ser pedagogo",
+"alvo": "pedagogia",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é cuidar de plantações",
+"alvo": "engenharia-agronomica",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer engenharia de alimentos",
+"alvo": "engenharia-de-alimentos",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo atuar na justiça",
+"alvo": "direito",
+"tipo": "semantico"
+},
+{
+"intencao": "tenho vontade de gerir empresas",
+"alvo": "administracao",
+"tipo": "semantico"
+},
+{
+"intencao": "quero conferir as questões e gabaritos",
+"alvo": "vestibular-2027",
+"tipo": "semantico"
+},
+{
+"intencao": "quero trabalhar como médica",
+"alvo": "medicina",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é desenvolver videogames",
+"alvo": "design-de-games",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é trabalhar num hospital",
+"alvo": "medicina",
+"tipo": "semantico"
+},
+{
+"intencao": "gostaria de criar campanhas de publicidade",
+"alvo": "publicidade-e-propaganda",
+"tipo": "semantico"
+},
+{
+"intencao": "quero trabalhar como psicóloga",
+"alvo": "psicologia",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo calcular estruturas de obras",
+"alvo": "engenharia-civil",
+"tipo": "semantico"
+},
+{
+"intencao": "gostaria de cuidar de animais",
+"alvo": "medicina-veterinaria",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é curar pessoas",
+"alvo": "medicina",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo proteger sistemas contra hackers",
+"alvo": "ciberseguranca",
+"tipo": "semantico"
+},
+{
+"intencao": "quero trabalhar com diplomacia",
+"alvo": "relacoes-internacionais",
+"tipo": "semantico"
+},
+{
+"intencao": "quero ser jornalista",
+"alvo": "jornalismo",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de engenharia mecânica",
+"alvo": "engenharia-mecanica",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho vontade de desenvolver videogames",
+"alvo": "design-de-games",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em serviço social",
+"alvo": "servico-social",
+"tipo": "lexical"
+},
+{
+"intencao": "gostaria de trabalhar com saúde bucal",
+"alvo": "odontologia",
+"tipo": "semantico"
+},
+{
+"intencao": "educação física",
+"alvo": "educacao-fisica-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "filosofia",
+"alvo": "filosofia-bacharelado",
+"tipo": "lexical"
+},
+{
+"intencao": "gostaria de defender pessoas no tribunal",
+"alvo": "direito",
+"tipo": "semantico"
+},
+{
+"intencao": "quero ser cineasta",
+"alvo": "cinema-e-audiovisual",
+"tipo": "semantico"
+},
+{
+"intencao": "tenho vontade de ler o edital",
+"alvo": "manual-do-candidato",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer administração - marketing e inovação",
+"alvo": "administracao-marketing-e-inovacao",
+"tipo": "lexical"
+},
+{
+"intencao": "informações sobre relações internacionais",
+"alvo": "relacoes-internacionais",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar como economista",
+"alvo": "ciencias-economicas",
+"tipo": "semantico"
+},
+{
+"intencao": "sonho em ser agrônomo",
+"alvo": "engenharia-agronomica",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo ser diretor de cinema",
+"alvo": "cinema-e-audiovisual",
+"tipo": "semantico"
+},
+{
+"intencao": "tenho vontade de planejar cidades",
+"alvo": "arquitetura-e-urbanismo",
+"tipo": "semantico"
+},
+{
+"intencao": "quero melhorar a produção no campo",
+"alvo": "engenharia-agronomica",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo trabalhar com impostos e balanços",
+"alvo": "ciencias-contabeis",
+"tipo": "semantico"
+},
+{
+"intencao": "sonho em ser publicitário",
+"alvo": "publicidade-e-propaganda",
+"tipo": "semantico"
+},
+{
+"intencao": "tenho interesse em administração – comércio exterior",
+"alvo": "administracao-comercio-exterior",
+"tipo": "lexical"
+},
+{
+"intencao": "sonho em ser desenvolvedor de software",
+"alvo": "engenharia-de-software",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo projetar computadores",
+"alvo": "engenharia-de-computacao",
+"tipo": "semantico"
+},
+{
+"intencao": "meu objetivo é defender pessoas no tribunal",
+"alvo": "direito",
+"tipo": "semantico"
+},
+{
+"intencao": "pretendo ser médico",
+"alvo": "medicina",
+"tipo": "semantico"
+},
+{
+"intencao": "quero planejar cidades",
+"alvo": "arquitetura-e-urbanismo",
+"tipo": "semantico"
+},
+{
+"intencao": "sonho em ser juiz",
+"alvo": "direito",
+"tipo": "semantico"
+},
+{
+"intencao": "tenho vontade de desenhar coleções de moda",
+"alvo": "design-de-moda",
+"tipo": "semantico"
+},
+{
+"intencao": "curso de química",
+"alvo": "quimica",
+"tipo": "lexical"
+},
+{
+"intencao": "jornalismo",
+"alvo": "jornalismo",
+"tipo": "lexical"
+},
+{
+"intencao": "quero me formar em design de games",
+"alvo": "design-de-games",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é ensinar história na escola",
+"alvo": "historia-licenciatura",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer pedagogia",
+"alvo": "pedagogia",
+"tipo": "lexical"
+},
+{
+"intencao": "quero cursar games",
+"alvo": "design-de-games",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é projetar casas e prédios",
+"alvo": "arquitetura-e-urbanismo",
+"tipo": "semantico"
+},
+{
+"intencao": "quero estudar farmácia",
+"alvo": "farmacia",
+"tipo": "lexical"
+},
+{
+"intencao": "quero ser estilista",
+"alvo": "design-de-moda",
+"tipo": "semantico"
+},
+{
+"intencao": "quero fazer cibersegurança",
+"alvo": "ciberseguranca",
+"tipo": "lexical"
+},
+{
+"intencao": "meu objetivo é trabalhar com agricultura",
+"alvo": "engenharia-agronomica",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em engenharia biomédica",
+"alvo": "engenharia-biomedica",
+"tipo": "lexical"
+},
+{
+"intencao": "quero atuar na justiça",
+"alvo": "direito",
+"tipo": "semantico"
+},
+{
+"intencao": "quero me formar em enfermagem",
+"alvo": "enfermagem",
+"tipo": "lexical"
+},
+{
+"intencao": "sonho em ser biomédico",
+"alvo": "biomedicina",
+"tipo": "semantico"
+},
+{
+"intencao": "tenho vontade de entender como funciona a inscrição",
+"alvo": "manual-do-candidato",
+"tipo": "semantico"
+},
+{
+"intencao": "quero estudar gestão de TI",
+"alvo": "gestao-da-tecnologia-da-informacao",
+"tipo": "lexical"
+},
+{
+"intencao": "quero cursar destaques",
+"alvo": "destaque",
+"tipo": "lexical"
+},
+{
+"intencao": "quero trabalhar como agrônomo",
+"alvo": "engenharia-agronomica",
+"tipo": "semantico"
+},
+{
+"intencao": "tenho interesse em design de games",
+"alvo": "design-de-games",
+"tipo": "lexical"
+},
+{
+"intencao": "quero fazer ciências jurídicas",
+"alvo": "direito",
+"tipo": "lexical"
+},
+{
+"intencao": "pretendo gerenciar a área de tecnologia",
+"alvo": "gestao-da-tecnologia-da-informacao",
+"tipo": "semantico"
+},
+{
+"intencao": "quero cursar terapia ocupacional",
+"alvo": "terapia-ocupacional",
+"tipo": "lexical"
+},
+{
+"intencao": "tenho vontade de tratar bichos de estimação",
+"alvo": "medicina-veterinaria",
+"tipo": "semantico"
+},
+{
+"intencao": "engenharia civil",
+"alvo": "engenharia-civil",
+"tipo": "lexical"
+},
+{
+"intencao": "sonho em ser assistente social",
+"alvo": "servico-social",
+"tipo": "semantico"
+}
+]
+}
