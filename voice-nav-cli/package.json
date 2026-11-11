@@ -1,17 +1,17 @@
 {
   "name": "voice-nav-cli",
-  "version": "1.0.0",
-  "description": "CLI tool that captures voice, extracts navigation intent and outputs target URL for PUC site.",
-  "main": "index.js",
+  "version": "1.1.0",
+  "description": "CLI: voz/texto -> intenção (Ollama) -> URL do site da PUC.",
+  "main": "src/index.js",
   "type": "module",
+  "bin": { "voice-nav": "src/index.js" },
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js",
+    "text": "node src/index.js --text",
+    "map": "node src/index.js map",
+    "doctor": "node src/index.js doctor",
+    "train": "python3 training/train.py"
   },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^1.7.2",
-    "node-record-lpcm16": "^1.0.3",
-    "@tensorflow/tfjs-node": "^4.13.0"
-  }
+  "engines": { "node": ">=18" },
+  "license": "MIT"
 }

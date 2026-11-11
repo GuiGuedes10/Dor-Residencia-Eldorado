@@ -1,31 +1,18 @@
-import record from 'node-record-lpcm16';
-import { Writable } from 'stream';
+import { spawnSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 /**
- * Record a short audio snippet from the default microphone.
- * Returns a Buffer containing raw 16‑bit PCM data (signed little‑endian, 16kHz mono).
+ * Grava com sox (brew install sox) em WAV 16 kHz mono.
+ * Para sozinho após ~1,5s de silêncio (máx. `maxSeconds`), sem esperar tempo fixo.
  */
-export function recordAudio(durationMs = 5000) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    const writable = new Writable({
-      write(chunk, _, cb) {
-        chunks.push(chunk);
-        cb();
-      }
-    });
-
-    const mic = record.record({
-      sampleRate: 16000,
-      channels: 1,
-      audioType: 'wav', // node‑record‑lpcm16 will output wav container
-    });
-
-    mic.stream().pipe(writable);
-    setTimeout(() => {
-      mic.stop();
-      const buffer = Buffer.concat(chunks);
-      resolve(buffer);
-    }, durationMs);
-  });
+export function recordAudio(maxSeconds = 8) {
+  const file = join(tmpdir(), `voice-nav-${Date.now()}.wav`);
+  const r = spawnSync('rec', [
+    '-q', '-c', '1', file, 'rate', '16000',
+    'silence', '1', '0.1', '2%', '1', '1.5', '2%',
+    'trim', '0', String(maxSeconds),
+  ], { stdio: 'inherit' });
+  if (r.error || r.status !== 0) throw new Error('Falha ao gravar. Instale sox e permita o microfone ao Terminal.');
+  return file;
 }

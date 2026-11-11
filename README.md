@@ -1,188 +1,209 @@
-# REIA — Voice-Guided Web Navigation Assistant (PUC-Campinas Vestibular)
+# REIA / Dør — Navegação Web Assistida por Voz e IA
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](https://www.python.org/)
-[![Architecture](https://img.shields.io/badge/architecture-modular%20pipeline-green.svg)](#arquitetura-do-sistema)
-[![Tests](https://img.shields.io/badge/tests-343%20passed%20(100%25)-brightgreen.svg)](#executando-os-testes)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/GuiGuedes10/Dor-Residencia-Eldorado/actions/workflows/ci.yml/badge.svg)](https://github.com/GuiGuedes10/Dor-Residencia-Eldorado/actions/workflows/ci.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12%20|%203.13-blue.svg)](https://www.python.org/)
+[![Tests](https://img.shields.io/badge/testes-297%20pytest%20·%20160%20standalone-brightgreen.svg)](#-testes)
+[![Acessibilidade](https://img.shields.io/badge/foco-acessibilidade%20(WCAG)-8a63d2.svg)](docs/ACESSIBILIDADE.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**REIA** (**R**econhecimento de **E**ntradas por **I**nteligência **A**rtificial) é uma solução em Python estruturada para navegação assistida por voz, projetada para auxiliar candidatos e estudantes no acesso às páginas de vestibular da **PUC-Campinas** como estudo de caso.
-
-O projeto evoluiu um protótipo experimental inicialmente concebido no Google Colab para uma arquitetura modular, desacoplada, orientada a testes e pronta para produção em ambiente local (macOS/Linux/Windows).
-
----
-
-## Destaques da Solução
-
-- 🎙️ **Tratamento Rigoroso de Restrições de Voz (`reia.audio`)**:
-  - Janelas de energia RMS de 50ms para detecção de silêncio preponderante ($R_{\text{silence}} \le 0.85$, $T_{\text{active}} \ge 0.4\text{s}$).
-  - Estimativa de relação sinal-ruído por quantis de energia ($\text{SNR} \ge 3.0\text{ dB}$).
-  - Limites rígidos de duração de fala útil ($0.8\text{s} \le T \le 12.0\text{s}$).
-  - Sanitização de transcrição com decomposição Unicode NFKD, remoção de diacríticos e eliminação de tags acústicas do Whisper (ex: `[Música]`, `(risos)`).
-
-- 🧠 **Classificação Neural com Portão de Rejeição (`reia.neural`)**:
-  - Modelo MLP (PyTorch com fallback matricial em NumPy/Python puro) balanceado para as rotas do vestibular da PUC-Campinas.
-  - Vetorizador multi-hot Bag-of-Words.
-  - Calibrador de confiança dinâmico com **duplo portão**: rejeição de comandos ambíguos com múltiplas intenções concorrentes, filtro de termos fora de domínio e limiares de probabilidade ($\ge 0.65$), margem ($\ge 0.20$) e entropia de Shannon ($\le 0.65$).
-
-- 🌐 **Navegação Web e Evidências Visuais (`reia.navigation`)**:
-  - Driver Selenium 4 em modo *headless* local e driver mock para testes herméticos offline.
-  - Roteamento determinístico para as páginas canônicas:
-    - `GUIA_UNIVERSITARIO` (cursos, campus, infraestrutura)
-    - `MANUAL_DO_CANDIDATO` (edital, datas, regras e provas)
-    - `FORMULARIO_INSCRICAO` (prazos, taxas e inscrição)
-  - Persistência automática de capturas de tela (PNG 1280x800) e metadados estruturados (JSON) no diretório `artifacts/`.
-
-- ⚡ **Pipeline Unificado com Curto-Circuito (`reia.pipeline`)**:
-  - Arquitetura *fail-fast*: erros de áudio ou baixa confiança neural abortam o fluxo antes de qualquer navegação externa indevida, emitindo mensagens explicativas em português.
-  - Interface CLI completa (`python3 -m reia`).
+> **REIA** (*Reconhecimento de Entradas por Inteligência Artificial*) é uma solução de
+> **navegação web assistida por voz** com foco em **acessibilidade**. O sistema **indica e
+> orienta** — ele destaca o próximo passo e o elemento-alvo, mas **quem decide e clica é a
+> pessoa usuária**. Estudo de caso principal: o fluxo de vestibular da **PUC-Campinas**.
+>
+> Projeto do **Grupo Dør** — Residência em IA (CPS · PUC-Campinas · **Instituto Eldorado**).
 
 ---
 
-## Arquitetura do Sistema
+## ✨ O que é
 
-```
-                      [Entrada de Voz: Microfone / Arquivo WAV / Bytes]
-                                              │
-                                              ▼
-                             ┌─────────────────────────────────┐
-                             │       reia.audio.validation     │
-                             │  • Duração útil: 0.8s a 12.0s   │
-                             │  • Razão de silêncio <= 0.85    │
-                             │  • SNR estimado >= 3.0 dB       │
-                             └────────────────┬────────────────┘
-                                              │ (Áudio Válido)
-                                              ▼
-                             ┌─────────────────────────────────┐
-                             │      Transcrição / Sanitização  │
-                             │  • Unicode NFKD (sem acentos)   │
-                             │  • Remoção de tags acústicas    │
-                             └────────────────┬────────────────┘
-                                              │ (Texto Sanitizado)
-                                              ▼
-                             ┌─────────────────────────────────┐
-                             │          reia.neural            │
-                             │  • Vetorização BoW Multi-hot    │
-                             │  • MLP (PyTorch / Fallback)     │
-                             │  • Portão de Ambiguidade        │
-                             │  • Threshold de Confiança >=0.65│
-                             └────────────────┬────────────────┘
-                                              │ (Intenção Aprovada)
-                                              ▼
-                             ┌─────────────────────────────────┐
-                             │         reia.navigation         │
-                             │  • Selenium Headless Local      │
-                             │  • Resolução de Rotas PUC       │
-                             │  • Screenshots PNG & JSON Meta  │
-                             └─────────────────────────────────┘
-```
+Sites institucionais (universidades, IFs, fundações) têm centenas de links — uma barreira
+real para quem tem baixa visão, baixa mobilidade ou pouca familiaridade digital. O REIA
+reduz esse ruído a uma pergunta simples: **"o que você procura?"** — e devolve **no máximo 4
+opções** ranqueadas, além de um **guia visual** que acompanha o mouse até o link certo.
+
+A classificação do que o usuário quer é feita por **redes neurais** (duas, pequenas e locais);
+nada é enviado para servidores de terceiros (ver [SECURITY.md](SECURITY.md)).
 
 ---
 
-## Estrutura do Repositório
+## 🧩 Monorepo: três componentes
+
+Este repositório reúne três implementações complementares da mesma ideia, do protótipo de
+pesquisa ao produto final:
+
+| Componente | Pasta | Papel | Stack | Status |
+|---|---|---|---|---|
+| **Extensão de navegador** | [`extension/`](extension/) | **Produto.** Controle flutuante acessível que lê a página, classifica a intenção e guia o mouse. | JavaScript (Manifest V3), rede neural no navegador | 🟢 Funcional |
+| **Pipeline de referência** | [`reia/`](reia/) | **Engenharia/pesquisa.** Pipeline robusto áudio → neural → navegação, orientado a testes. | Python 3.10+, PyTorch (c/ fallback puro), Selenium | 🟢 297 testes |
+| **CLI de terminal** | [`voice-nav-cli/`](voice-nav-cli/) | **Protótipo/laboratório.** Mesma lógica no terminal: voz local, crawler de sites e ranking. | Node ≥ 18, `whisper.cpp`, Ollama (opcional) | 🟡 Experimental |
 
 ```
-reia/
-├── .gitignore                   # Regras abrangentes para Python, caches e artefatos
-├── pyproject.toml               # Metadados de empacotamento e configuração de ferramentas
-├── requirements.txt             # Dependências Python locais
-├── README.md                    # Documentação principal e showcase
-├── reia/                        # Pacote modular da aplicação
-│   ├── __init__.py
-│   ├── __main__.py              # Ponto de entrada CLI (python3 -m reia)
-│   ├── core/                    # Configurações, limiares e exceções tipadas
-│   ├── audio/                   # Validação acústica, fontes de som e sanitização
-│   ├── neural/                  # Rede neural MLP, vetorizador e pesos treinados
-│   ├── navigation/              # Drivers Selenium headless, mock e artefatos
-│   └── pipeline/                # Orquestrador central e interface de comando
-├── tests/                       # Suíte completa de testes automatizados
-│   ├── conftest.py              # Test harness e runner mestre standalone
-│   ├── test_audio.py            # Testes unitários do subsistema de áudio
-│   ├── test_neural.py           # Testes unitários da rede neural
-│   ├── test_navigation.py       # Testes unitários da navegação web
-│   ├── test_pipeline.py         # Testes unitários do pipeline integrado
-│   ├── test_tier1_features.py   # Testes de funcionalidades base
-│   ├── test_tier2_boundaries.py # Análise de valores limite e fronteiras
-│   ├── test_tier3_combinations.py # Combinações pairwise e curto-circuito
-│   ├── test_tier4_scenarios.py  # Cenários E2E de jornadas completas
-│   └── test_tier5_adversarial.py# Testes de estresse e resiliência adversarial
-├── notebooks/                   # Notebooks originais de exploração e prototipagem
-│   └── vestibular_puc_poc_original.ipynb
-├── docs/                        # Especificações técnicas e registros de arquitetura
-│   ├── PROJECT.md               # Especificação detalhada de requisitos e arquitetura
-│   ├── TEST_INFRA.md            # Metodologia e infraestrutura dos testes
-│   ├── TEST_READY.md            # Certificado e inventário de testes homologados
-│   └── contexto_residencia_ia.md# Notas de contexto do Grupo Dør / Residência em IA
-└── artifacts/                   # Diretório de persistência de evidências visuais
-    └── .gitkeep
+                           A pessoa diz / digita o que procura
+                                          │
+         ┌────────────────────────────────┼─────────────────────────────────┐
+         ▼                                 ▼                                  ▼
+  extension/  (produto)            reia/  (referência)              voice-nav-cli/ (lab)
+  Web Speech API  ·  topic net     Validação de áudio  ·  MLP       whisper.cpp  ·  bridge
+  halo-guia (nn.js)                4 estágios de rejeição           crawler + ranking
+         │                                 │                                  │
+         ▼                                 ▼                                  ▼
+  destaca ≤4 links + guia        navega (Selenium/mock)            abre a URL / top-4
+  a cor do halo mostra            + screenshot/metadados            no terminal
+  se está "dando certo"
 ```
+
+Veja o desenho completo em **[docs/ARQUITETURA.md](docs/ARQUITETURA.md)**.
 
 ---
 
-## Instalação e Configuração
+## 🚀 Começando
 
-### Requisitos
-- Python 3.10 ou superior
-- Google Chrome instalado (para execução do Selenium em modo headless real)
+### 1) Extensão de navegador (o produto)
 
-### 1. Criar e Ativar Ambiente Virtual
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate  # No Windows: .venv\Scripts\activate
+# Chrome/Edge/Brave → chrome://extensions → ativar "Modo do desenvolvedor"
+#   → "Carregar sem compactação" → selecionar a pasta extension/
 ```
 
-### 2. Instalar Dependências
+Depois, em qualquer site: clique no 🎤 (ou **Alt+V**), fale/digite, escolha uma das ≤4 opções
+e siga o **halo** com o mouse. Detalhes e treino da rede do halo em
+[`extension/README.md`](extension/README.md).
+
+### 2) Pipeline Python (referência, testável)
+
 ```bash
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+
+# Navegar a partir de texto (classificado pela rede neural)
+python3 -m reia --text "quero ver os cursos oferecidos e o campus"
+
+# A partir de um WAV, ou via microfone, ou em modo simulado (offline)
+python3 -m reia --audio-file caminho/audio.wav
+python3 -m reia --text "qual a data da prova e o edital" --mock
 ```
 
-Ou instalar o pacote em modo editável:
+### 3) CLI de terminal (laboratório)
+
 ```bash
-pip install -e .
+cd voice-nav-cli && npm install
+npm start                 # fluxo guiado (instituição → voz → opções)
+npm run doctor            # diagnóstico de microfone/transcrição
+npm run map -- https://www.exemplo.edu.br   # mapeia um site novo
+```
+
+Requisitos de voz da CLI (`sox`/`ffmpeg`, `whisper.cpp`) estão em
+[`voice-nav-cli/README.md`](voice-nav-cli/README.md).
+
+---
+
+## 🧠 As redes neurais
+
+O projeto usa **duas redes pequenas, treináveis e executadas localmente** — mais a rede de
+referência do pacote Python:
+
+1. **Classificador de tópicos** (`extension/models/intent.json`, também usado pela CLI):
+   MLP *bag-of-words* que mapeia a frase do usuário para um tópico
+   (`vestibular`, `cursos`, `extensão`, `concursos`, `bolsas`, `pós`, `contato`).
+   Treinado por `voice-nav-cli/training/train.py` a partir de `training/intents.tsv`
+   (`npm run train`). **Só biblioteca padrão.**
+
+2. **Rede do "halo"** (`extension/nn.js`): MLP minúsculo (5→8→1) que estima, a cada movimento
+   do mouse, o quanto você está **"dando certo"** (perto do alvo). É **treinável pelo próprio
+   usuário** em `train.html` e aprende o estilo de movimento da pessoa — útil para quem tem
+   tremor ou mira imprecisa.
+
+3. **Rede de intenção de referência** (`reia/neural/`): MLP PyTorch (58→16→3) com
+   **4 estágios de rejeição** (saliência lexical, softmax, confiança ≥ 0.65, margem ≥ 0.20 e
+   entropia ≤ 0.65) e **fallback em Python puro** via `weights.json`. É a base matemática
+   que a CLI consulta para a PUC-Campinas.
+
+> **Por que isso importa para acessibilidade:** o sistema prefere **não decidir** a decidir
+> errado. Um comando ambíguo é rejeitado com uma mensagem clara em vez de levar a pessoa para
+> a página errada.
+
+---
+
+## 🎨 UX e acessibilidade
+
+O modal foi redesenhado para ser **maior e mais legível** e o guia visual ganhou uma **escala
+de cor divergente e semântica**:
+
+- 🔴 **vermelho = dando errado** (longe do alvo)
+- 🟠 **âmbar = quase lá** (tom intermediário)
+- 🔵 **azul = dando certo** (em cima do alvo)
+
+A escala segue o padrão **ColorBrewer RdYlBu**, **segura para daltonismo** (evita a dupla
+vermelho↔verde). E a cor **nunca é a única pista**: o halo também **encolhe** ao se aproximar.
+Decisões, critérios WCAG e a prévia visual estão em
+**[docs/ACESSIBILIDADE.md](docs/ACESSIBILIDADE.md)** · **[docs/ux-preview.html](docs/ux-preview.html)**.
+
+---
+
+## 🧪 Testes
+
+```bash
+pytest -q                     # suíte completa: 297 testes
+python3 tests/conftest.py     # runner standalone (sem dependências): 160 testes de tier
+```
+
+| Camada | Arquivos | Testes |
+|---|---|---|
+| Unitários | `test_audio`, `test_neural`, `test_navigation`, `test_pipeline` | inclusos no pytest |
+| Tier 1 — funcionalidades | `test_tier1_features.py` | 36 |
+| Tier 2 — limites | `test_tier2_boundaries.py` | 48 |
+| Tier 3 — combinações | `test_tier3_combinations.py` | 18 |
+| Tier 4 — cenários E2E | `test_tier4_scenarios.py` | 12 |
+| Tier 5 — adversarial | `test_tier5_adversarial.py` | 46 |
+
+O runner standalone roda em Python puro (sem PyTorch/Selenium), provando o caminho de
+*fallback*. O CI roda ambos + checagem de JS ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+
+---
+
+## 📁 Estrutura do repositório
+
+```
+.
+├── extension/            # Extensão de navegador (produto) — ver extension/README.md
+│   ├── manifest.json     # Manifest V3
+│   ├── content.js        # modal acessível + modo guia (halo)
+│   ├── nn.js             # rede do halo + escala de cor divergente
+│   ├── train.html/.js    # treino da rede do halo pelo usuário
+│   └── models/intent.json# classificador de tópicos (versionado)
+├── reia/                 # Pipeline Python de referência
+│   ├── audio/  neural/  navigation/  pipeline/  core/
+├── voice-nav-cli/        # CLI de terminal (Node)
+│   ├── src/  training/  bridge/
+├── tests/                # Suíte multi-tier (pytest + runner standalone)
+├── docs/                 # ARQUITETURA, ACESSIBILIDADE, ADRs, apresentação, prévia de UX
+├── notebooks/            # Protótipo original (Colab)
+├── .github/              # CI e templates de issue/PR
+├── LICENSE · CONTRIBUTING.md · CODE_OF_CONDUCT.md · SECURITY.md · CHANGELOG.md
+└── pyproject.toml · requirements.txt
 ```
 
 ---
 
-## Como Usar a CLI
+## 🗺️ Roadmap
 
-O REIA fornece uma interface de linha de comando flexível através de `python3 -m reia`:
-
-```bash
-# 1. Navegação a partir de texto direto (processado pela rede neural)
-python3 -m reia --text "quero ver os cursos oferecidos e informacoes do campus"
-
-# 2. Navegação a partir de arquivo de áudio WAV local
-python3 -m reia --audio-file caminho/do/audio.wav
-
-# 3. Navegação via microfone interativo (se disponível no sistema)
-python3 -m reia --mic
-
-# 4. Modo headless explícito ou modo simulado para testes rápidos
-python3 -m reia --text "qual a data da prova e edital do vestibular" --mock
-```
+- [x] Pipeline Python modular e testado (áudio → neural → navegação)
+- [x] Extensão funcional com modal acessível e guia visual
+- [x] Organização de engenharia (CI, licença, docs, ADRs)
+- [ ] Dataset de voz real e retreino do classificador de tópicos (hoje ~52 frases)
+- [ ] Mapa verificado por instituição/estado (URLs e seções oficiais)
+- [ ] Testes de acessibilidade com usuários reais (WCAG 2.2 AA)
+- [ ] Novos tópicos: cursos de extensão/FIC e concursos (docente/técnico)
 
 ---
 
-## Executando os Testes
+## 🤝 Como contribuir
 
-O projeto conta com mais de 340 testes automatizados cobrindo testes unitários, testes de limites, combinações e cenários adversariais.
+Leia o [CONTRIBUTING.md](CONTRIBUTING.md) e o [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+Em resumo: issue → branch → commits pequenos ([Conventional Commits](https://www.conventionalcommits.org/)) →
+testes passando → PR usando o template.
 
-### Execução via Runner Standalone (Sem dependências externas)
-```bash
-python3 tests/conftest.py
-```
+## 📄 Licença
 
-### Execução via Unittest
-```bash
-python3 -m unittest discover tests
-```
-
-### Execução via Pytest
-```bash
-pytest -v
-```
-
----
-
-## Licença
-
-Distribuído sob a licença MIT. Consulte `pyproject.toml` para mais informações.
+[MIT](LICENSE) © 2026 Grupo Dør — Residência em IA (CPS · PUC-Campinas · Instituto Eldorado).

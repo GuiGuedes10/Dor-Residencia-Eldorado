@@ -66,3 +66,27 @@ artifacts/*.json
 # Agent workspaces / internal orchestrator logs
 .agents/
 .gemini/
+
+# Node.js (voice-nav-cli e extension)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Modelos binários grandes (baixados/treinados localmente — NÃO versionar)
+# Whisper/ggml e afins; o classificador de tópicos (intent.json) É versionado.
+voice-nav-cli/models/*.bin
+voice-nav-cli/models/*.gguf
+voice-nav-cli/models/ggml-*
+*.onnx
+*.pt
+*.safetensors
+
+# Mapas de site gerados pelo crawler (regeneráveis com `npm run map`)
+voice-nav-cli/data/*.json
+!voice-nav-cli/data/.gitkeep
+
+# Áudios de captura temporários
+*.wav
+!tests/**/*.wav

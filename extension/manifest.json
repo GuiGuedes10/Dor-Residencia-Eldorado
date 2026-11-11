@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Dør",
+  "description": "Controle flutuante acessível: fale o que procura e escolha entre até 4 links. Um halo de cor (vermelho→âmbar→azul) guia o mouse até o alvo certo.",
+  "version": "1.0.0",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["nn.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "train.html",
+  "web_accessible_resources": [
+    { "resources": ["models/intent.json"], "matches": ["https://*/*", "http://*/*"] }
+  ]
+}

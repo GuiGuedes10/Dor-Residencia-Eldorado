@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>REIA Voice-Nav — Apresentação</title>
+<style>
+body{margin:0;font-family:system-ui,sans-serif;background:#111;color:#fff}
+section{min-height:100vh;box-sizing:border-box;padding:6vh 8vw;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid #333}
+h1{font-size:3rem;margin:0 0 1rem}h2{font-size:2.2rem;color:#7cc4ff;margin:0 0 1rem}
+li{font-size:1.4rem;margin:.5rem 0;line-height:1.4}code{background:#222;padding:2px 6px;border-radius:4px}
+table{border-collapse:collapse;font-size:1.2rem}td,th{border:1px solid #444;padding:8px 14px;text-align:left}
+.sub{color:#aaa;font-size:1.3rem}
+</style></head><body>
+
+<section><h1>REIA Voice-Nav</h1><p class="sub">Navegação por voz e IA em sites de instituições educacionais (PUC, UFs, IFs, FIA) — foco em acessibilidade</p></section>
+
+<section><h2>Problema</h2><ul>
+<li>Sites educacionais têm centenas de links; difícil para quem tem baixa visão ou mobilidade reduzida.</li>
+<li>Cada instituição, campus e estado tem estrutura própria.</li>
+<li>Meta: dizer o que quer e escolher entre <b>no máximo 4 opções</b>.</li></ul></section>
+
+<section><h2>Fluxo de UX</h2><ul>
+<li><b>1.</b> Instituição → PUC: campus · UF/IF: região → estado → instituição</li>
+<li><b>2.</b> Voz (grava até a pausa) → "Entendi: … Está certo? Sim / Repetir / Digitar"</li>
+<li><b>3.</b> Rede neural decide o tópico → até 4 links ranqueados → um clique/número</li>
+<li>Todo menu tem ≤ 4 linhas; mais itens viram "Mais opções".</li></ul></section>
+
+<section><h2>Arquitetura</h2><ul>
+<li><code>sox</code> grava 16 kHz com parada por silêncio → <code>whisper.cpp</code> (pt, vocabulário do domínio)</li>
+<li>Rede REIA (PyTorch/MLP) — PUC-Campinas: guia, manual, inscrição</li>
+<li>Rede própria (<code>training/train.py</code>) — tópicos: vestibular, cursos, extensão, concursos, bolsas, pós, contato</li>
+<li>Crawler 2 níveis por site → ranking por embeddings (Ollama) com fallback por palavras-chave</li></ul></section>
+
+<section><h2>Redes neurais treinadas por você</h2><ul>
+<li>Dados em <code>training/intents.tsv</code> (intenção ⇥ frase); <code>npm run train</code> gera <code>models/intent.json</code></li>
+<li>Estado atual: 52 frases · acurácia de validação ≈ 36% → <b>precisa de mais dados</b></li>
+<li>Meta: 100+ frases por tópico, gravadas por vozes reais; medir com validação separada</li></ul></section>
+
+<section><h2>Roadmap de engenharia</h2>
+<table><tr><th>Fase</th><th>Entrega</th></tr>
+<tr><td>1</td><td>Voz estável (<code>npm run doctor</code>), confirmação, testes automatizados</td></tr>
+<tr><td>2</td><td>Dataset de voz real e retreino; log de correções do usuário como novos exemplos</td></tr>
+<tr><td>3</td><td>Mapa verificado por instituição/estado (URLs, seções oficiais)</td></tr>
+<tr><td>4</td><td>Extensão de navegador com controle flutuante transparente</td></tr>
+<tr><td>5</td><td>Testes de acessibilidade com usuários (WCAG)</td></tr></table></section>
+
+<section><h2>Oportunidades: extensão e concursos</h2><ul>
+<li><b>Extensão:</b> cursos livres/FIC dos IFs, extensão das UFs e PUCs, formação continuada — novo tópico na voz.</li>
+<li><b>Concursos:</b> docentes e técnico-administrativos de UFs/IFs, professor substituto — editais por instituição e estado.</li>
+<li>Diferencial: o filtro região/estado leva direto aos editais e cursos locais.</li></ul></section>
+
+<section><h2>Riscos e próximos passos</h2><ul>
+<li>Alguns sites bloqueiam acesso automático (ex.: IFSP) — não contornar; usar mapa manual.</li>
+<li>Rede com poucos dados — priorizar coleta e avaliação.</li>
+<li>Validar URLs de <code>regioes.js</code> e levantar editais reais.</li></ul></section>
+
+</body></html>
