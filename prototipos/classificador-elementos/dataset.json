@@ -1,0 +1,27 @@
+{
+  "fonte_elementos": "voice-nav-cli/data/vestibular.puc-campinas.edu.br.json",
+  "observacao": "alvo = trecho distintivo do slug do link correto; o avaliador casa pelo slug mais curto que contém esse trecho.",
+  "casos": [
+    {"intencao": "quero ver o manual do candidato", "alvo": "manual-do-candidato", "tipo": "lexical"},
+    {"intencao": "informações de ciências contábeis", "alvo": "ciencias-contabeis", "tipo": "lexical"},
+    {"intencao": "curso de relações internacionais", "alvo": "relacoes-internacionais", "tipo": "lexical"},
+    {"intencao": "quero fazer jornalismo", "alvo": "jornalismo", "tipo": "lexical"},
+    {"intencao": "onde vejo os gabaritos e resultados do vestibular", "alvo": "resultados/vestibular-2027", "tipo": "lexical"},
+    {"intencao": "quero cursar publicidade e propaganda", "alvo": "publicidade-e-propaganda", "tipo": "lexical"},
+
+    {"intencao": "quero ser advogado", "alvo": "curso/direito", "tipo": "semantico"},
+    {"intencao": "quero ser dentista", "alvo": "odontologia", "tipo": "semantico"},
+    {"intencao": "quero ser médico", "alvo": "curso/medicina", "tipo": "semantico"},
+    {"intencao": "curso para cuidar de animais", "alvo": "medicina-veterinaria", "tipo": "semantico"},
+    {"intencao": "trabalhar com segurança digital e proteção contra hackers", "alvo": "ciberseguranca", "tipo": "semantico"},
+    {"intencao": "quero criar videogames", "alvo": "design-de-games", "tipo": "semantico"},
+    {"intencao": "desenhar e criar roupas", "alvo": "design-de-moda", "tipo": "semantico"},
+    {"intencao": "ser chef de cozinha", "alvo": "gastronomia", "tipo": "semantico"},
+    {"intencao": "cuidar da saúde mental das pessoas", "alvo": "psicologia", "tipo": "semantico"},
+    {"intencao": "quero ensinar história na escola", "alvo": "historia-licenciatura", "tipo": "semantico"},
+    {"intencao": "cuidar de plantas e lavoura", "alvo": "engenharia-agronomica", "tipo": "semantico"},
+    {"intencao": "edital e regras do processo seletivo", "alvo": "manual-do-candidato", "tipo": "semantico"},
+    {"intencao": "quero trabalhar com inteligência artificial e dados", "alvo": "ciencia-de-dados", "tipo": "semantico"},
+    {"intencao": "fazer remédios e trabalhar numa farmácia", "alvo": "farmacia", "tipo": "semantico"}
+  ]
+}
