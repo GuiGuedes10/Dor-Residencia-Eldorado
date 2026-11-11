@@ -86,13 +86,8 @@ def avaliar(nome, funcao_rank, casos, elementos):
 
 def main():
     elementos = carregar_elementos()
-    # Usa o conjunto de teste gerado (grande) se existir; senão, o dataset curado pequeno.
-    if len(sys.argv) > 1:
-        nome_ds = sys.argv[1]
-    elif (AQUI / "dataset_teste.json").exists():
-        nome_ds = "dataset_teste.json"
-    else:
-        nome_ds = "dataset.json"
+    # Avalia o dataset passado por argumento; senão, o conjunto de exemplo (dataset.json).
+    nome_ds = sys.argv[1] if len(sys.argv) > 1 else "dataset.json"
     casos = json.loads((AQUI / nome_ds).read_text(encoding="utf-8"))["casos"]
     print(f"Elementos (links reais da PUC): {len(elementos)}  |  dataset: {nome_ds}  |  casos: {len(casos)}\n")
 
