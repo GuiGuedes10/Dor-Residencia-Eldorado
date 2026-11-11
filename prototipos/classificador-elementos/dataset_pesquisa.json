@@ -1,0 +1,41 @@
+{
+  "fonte": "Pesquisa Gemini Pro, verificada por Claude. Pares ancorados em guias vocacionais (Quero Bolsa, Guia do Estudante, Brasil Escola) e no FAQ/portal da PUC-Campinas. São paráfrases plausíveis ancoradas em fontes reais, NÃO logs de usuários reais.",
+  "fonte_elementos": "voice-nav-cli/data/vestibular.puc-campinas.edu.br.json (64 links reais da PUC)",
+  "nota": "presente_no_corpus=false → o elemento-alvo ainda NÃO está no crawl atual (só cursos + manual + resultados). Precisa crawlear o portal transacional (inscrição, bolsas, isenção...). O avaliar.py pula esses automaticamente.",
+  "casos": [
+    {"intencao": "quero ser advogado", "alvo": "curso/direito", "tipo": "semantico", "fonte": "Quero Bolsa – Carreiras", "presente_no_corpus": true},
+    {"intencao": "quero ser juiz ou promotor", "alvo": "curso/direito", "tipo": "semantico", "fonte": "Quero Bolsa – Carreiras", "presente_no_corpus": true},
+    {"intencao": "quero ser delegado de polícia", "alvo": "curso/direito", "tipo": "semantico", "fonte": "Quero Bolsa – Carreiras", "presente_no_corpus": true},
+    {"intencao": "quero ser dentista e cuidar de dentes", "alvo": "odontologia", "tipo": "semantico", "fonte": "Quero Bolsa – Profissões", "presente_no_corpus": true},
+    {"intencao": "quero ser veterinário e cuidar de animais", "alvo": "medicina-veterinaria", "tipo": "semantico", "fonte": "Quero Bolsa – Profissões", "presente_no_corpus": true},
+    {"intencao": "quero ser médico e trabalhar em hospital", "alvo": "curso/medicina", "tipo": "semantico", "fonte": "Quero Bolsa / Mackenzie", "presente_no_corpus": true},
+    {"intencao": "quero trabalhar com exames laboratoriais e análises clínicas", "alvo": "biomedicina", "tipo": "semantico", "fonte": "PUC-Campinas – Biomedicina", "presente_no_corpus": true},
+    {"intencao": "quero ser contador e cuidar de impostos", "alvo": "ciencias-contabeis", "tipo": "semantico", "fonte": "Guia do Estudante", "presente_no_corpus": true},
+    {"intencao": "quero projetar casas e prédios e ser arquiteto", "alvo": "arquitetura-e-urbanismo", "tipo": "semantico", "fonte": "Quero Bolsa / PUC-Campinas", "presente_no_corpus": true},
+    {"intencao": "quero ser programador e criar sistemas e aplicativos", "alvo": "engenharia-de-software", "tipo": "semantico", "fonte": "Brasil Escola / Quero Bolsa", "presente_no_corpus": true},
+    {"intencao": "quero trabalhar com inteligência artificial e ciência de dados", "alvo": "ciencia-de-dados", "tipo": "semantico", "fonte": "Agência SP – Unicamp 2027", "presente_no_corpus": true},
+    {"intencao": "quero ser psicólogo e atender pacientes em terapia", "alvo": "psicologia", "tipo": "semantico", "fonte": "Quero Bolsa – Profissões", "presente_no_corpus": true},
+    {"intencao": "quero ser enfermeiro", "alvo": "enfermagem", "tipo": "semantico", "fonte": "Guia do Estudante", "presente_no_corpus": true},
+    {"intencao": "quero ser nutricionista e montar dietas", "alvo": "nutricao", "tipo": "semantico", "fonte": "Quero Bolsa – Nutrição", "presente_no_corpus": true},
+    {"intencao": "quero trabalhar com propaganda, anúncios e marcas", "alvo": "publicidade-e-propaganda", "tipo": "semantico", "fonte": "Quero Bolsa – Carreiras", "presente_no_corpus": true},
+    {"intencao": "quero dar aula na escola e ser professor", "alvo": "pedagogia", "tipo": "semantico", "fonte": "Quero Bolsa – Carreiras", "presente_no_corpus": true},
+
+    {"intencao": "regras da prova e o que posso levar no dia do exame", "alvo": "manual-do-candidato", "tipo": "semantico", "fonte": "Portal PUC-Campinas", "presente_no_corpus": true},
+    {"intencao": "baixar provas antigas e gabaritos para estudar", "alvo": "resultados/vestibular-2027", "tipo": "semantico", "fonte": "Portal PUC-Campinas / FUVEST", "presente_no_corpus": true},
+
+    {"intencao": "manual acessível em libras para surdos", "alvo": "secao/manual-libras", "tipo": "semantico", "fonte": "Portal PUC-Campinas", "presente_no_corpus": false},
+    {"intencao": "fazer minha inscrição no vestibular", "alvo": "secao/inscricao", "tipo": "semantico", "fonte": "PUC-Campinas – Inscrições", "presente_no_corpus": false},
+    {"intencao": "ver onde vai ser minha prova e imprimir o cartão de confirmação", "alvo": "secao/cartao-confirmacao", "tipo": "semantico", "fonte": "Portal PUC-Campinas", "presente_no_corpus": false},
+    {"intencao": "não tenho dinheiro para a taxa e quero pedir isenção", "alvo": "secao/isencao-taxa", "tipo": "semantico", "fonte": "Comvest / Reddit r/enem", "presente_no_corpus": false},
+    {"intencao": "usar minha nota do enem para entrar sem fazer prova", "alvo": "secao/enem", "tipo": "semantico", "fonte": "Curso Objetivo – Enem-Unicamp", "presente_no_corpus": false},
+    {"intencao": "concorrer por cotas de escola pública, ppi ou pcd", "alvo": "secao/acoes-afirmativas", "tipo": "semantico", "fonte": "FUVEST / Comvest", "presente_no_corpus": false},
+    {"intencao": "preciso de atendimento especial, prova ampliada ou ledor", "alvo": "secao/atendimento-especial", "tipo": "semantico", "fonte": "Mackenzie / FUVEST", "presente_no_corpus": false},
+    {"intencao": "conseguir bolsa de estudo 100% ou desconto na mensalidade", "alvo": "secao/bolsas", "tipo": "semantico", "fonte": "PUC-Campinas – Bolsas", "presente_no_corpus": false},
+    {"intencao": "financiar a faculdade para pagar depois de formado", "alvo": "secao/fies", "tipo": "semantico", "fonte": "PUC-Campinas – Financiamento", "presente_no_corpus": false},
+    {"intencao": "emitir segunda via ou pagar o boleto da inscrição", "alvo": "secao/boleto", "tipo": "semantico", "fonte": "Mackenzie / Reddit r/enem", "presente_no_corpus": false},
+    {"intencao": "ver a lista de aprovados e saber se fui convocado", "alvo": "secao/convocados", "tipo": "semantico", "fonte": "Mackenzie / FUVEST", "presente_no_corpus": false},
+    {"intencao": "quais documentos preciso entregar para a matrícula", "alvo": "secao/matricula", "tipo": "semantico", "fonte": "FAQ PUC-Campinas", "presente_no_corpus": false},
+    {"intencao": "fui chamado mas quero trocar de curso", "alvo": "secao/reopcao", "tipo": "semantico", "fonte": "FAQ PUC-Campinas", "presente_no_corpus": false},
+    {"intencao": "falar com o atendimento e saber o valor da mensalidade", "alvo": "secao/fale-conosco", "tipo": "semantico", "fonte": "FAQ PUC-Campinas / UNESP", "presente_no_corpus": false}
+  ]
+}

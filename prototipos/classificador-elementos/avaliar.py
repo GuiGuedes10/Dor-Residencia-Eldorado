@@ -59,28 +59,31 @@ def posicao_do_alvo(ranking, alvo_el: Elemento) -> int:
 def avaliar(nome, funcao_rank, casos, elementos):
     s1 = s3 = 0
     rr = 0.0
+    n_ok = pulados = 0
     por_tipo = {"lexical": [0, 0], "semantico": [0, 0]}  # [acertos@1, total]
     falhas = []
     for c in casos:
         alvo_el = resolver_alvo(c["alvo"], elementos)
-        if alvo_el is None:
+        if alvo_el is None:  # alvo não existe no corpus atual: não conta (nem acerto, nem erro)
+            pulados += 1
             continue
+        n_ok += 1
         ranking = funcao_rank(c["intencao"], elementos)
         pos = posicao_do_alvo(ranking, alvo_el)
         s1 += pos == 1
         s3 += pos <= 3
         rr += 1.0 / pos
-        t = por_tipo[c["tipo"]]
+        t = por_tipo.get(c.get("tipo", "semantico"), por_tipo["semantico"])
         t[0] += pos == 1
         t[1] += 1
         if pos != 1:
             falhas.append((c["intencao"], pos, ranking[0][0].texto))
-    n = len(casos)
+    d = max(1, n_ok)
     return {
         "nome": nome,
-        "s1": s1 / n, "s3": s3 / n, "mrr": rr / n,
+        "s1": s1 / d, "s3": s3 / d, "mrr": rr / d,
         "lex": por_tipo["lexical"], "sem": por_tipo["semantico"],
-        "falhas": falhas,
+        "falhas": falhas, "n_ok": n_ok, "pulados": pulados,
     }
 
 
@@ -108,6 +111,8 @@ def main():
         lex = f"{r['lex'][0]}/{r['lex'][1]}"
         sem = f"{r['sem'][0]}/{r['sem'][1]}"
         print(f"{r['nome']:32s} {r['s1']:7.0%} {r['s3']:7.0%} {r['mrr']:6.2f} {lex:>7s} {sem:>7s}")
+
+    print(f"\n(avaliados: {resultados[0]['n_ok']} casos; pulados por alvo ausente no corpus atual: {resultados[0]['pulados']})")
 
     if st is None:
         print("\n(sentence-transformers não instalado — `pip install sentence-transformers` para o salto semântico)")
