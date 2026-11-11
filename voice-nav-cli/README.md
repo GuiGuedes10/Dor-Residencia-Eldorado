@@ -16,7 +16,7 @@ A tiny Node.js command‑line tool that reproduces the same **voice‑to‑navig
 ## Installation
 ```bash
 # Clone / create the folder (already present in the workspace)
-cd /Users/carlosarturguimaraes/Documents/reia/voice-nav-cli
+cd reia/voice-nav-cli
 # Install dependencies
 npm install
 ```

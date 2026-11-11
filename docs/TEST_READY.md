@@ -31,19 +31,19 @@ The test suite conforms to the opaque-box testing methodology defined in `ORIGIN
 
 The following files were authored and verified under exclusive file ownership:
 
-1. `/Users/carlosarturguimaraes/Documents/reia/TEST_INFRA.md`:
+1. `reia/TEST_INFRA.md`:
    - Comprehensive testing infrastructure specification describing the opaque-box methodology, mathematical derivations, boundary definitions, and 4-tier architecture.
-2. `/Users/carlosarturguimaraes/Documents/reia/tests/conftest.py`:
+2. `reia/tests/conftest.py`:
    - Shared test harness containing deterministic `SyntheticAudioGenerator`, `MockNavigator` with local HTML fixtures, zero-dependency 1280x800 PNG screenshot generator, reference neural classifier, audio validator, text sanitizer, and dual pytest/standalone runner.
-3. `/Users/carlosarturguimaraes/Documents/reia/tests/test_tier1_features.py`:
+3. `reia/tests/test_tier1_features.py`:
    - 36 feature coverage test cases (6 tests per core feature).
-4. `/Users/carlosarturguimaraes/Documents/reia/tests/test_tier2_boundaries.py`:
+4. `reia/tests/test_tier2_boundaries.py`:
    - 48 boundary value and corner case tests (covering all 9 specified boundaries).
-5. `/Users/carlosarturguimaraes/Documents/reia/tests/test_tier3_combinations.py`:
+5. `reia/tests/test_tier3_combinations.py`:
    - 18 pairwise interaction and cascading failure short-circuit tests.
-6. `/Users/carlosarturguimaraes/Documents/reia/tests/test_tier4_scenarios.py`:
+6. `reia/tests/test_tier4_scenarios.py`:
    - 12 realistic end-to-end user journeys (voice audio $\to$ navigation $\to$ screenshot and DOM metadata verification).
-7. `/Users/carlosarturguimaraes/Documents/reia/TEST_READY.md`:
+7. `reia/TEST_READY.md`:
    - Test suite readiness certificate and execution documentation.
 
 ---

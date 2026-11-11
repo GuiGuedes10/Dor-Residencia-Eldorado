@@ -138,7 +138,7 @@ class NavigationResult:
 
 ## Code Layout
 ```
-/Users/carlosarturguimaraes/Documents/reia/
+reia/
 ├── pyproject.toml
 ├── requirements.txt
 ├── README.md
