@@ -1,0 +1,22 @@
+{
+  "site": "puc-campinas (portal transacional do vestibular/bolsas)",
+  "obtido": "2026-11-11 via leitura das páginas públicas vestibular.puc-campinas.edu.br e puc-campinas.edu.br/financiamento-bolsas",
+  "nota": "Elementos reais do fluxo transacional. 'contexto' = enriquecimento (seção/heading + href) para elementos cujo texto visível é pobre (ex.: 'Saiba mais'), conforme recomendação da pesquisa. Isenção de taxa, boleto/2ª via, cotas de graduação, lista de convocados e matrícula NÃO aparecem como links públicos (atrás de login ou em PDFs) — por isso continuam fora do corpus.",
+  "links": [
+    {"text": "Inscrições Encerradas", "url": "https://puccampinasinscricao.crmeducacional.com/login/1016", "contexto": "fazer inscrição no vestibular processo seletivo graduação formulário de inscrição"},
+    {"text": "Acessar Cartão de Confirmação de Inscrição", "url": "https://portal-ingresso.puc-campinas.edu.br/processo-seletivo/r/historico", "contexto": "onde vai ser a prova local de prova sala endereço horário"},
+    {"text": "Edital 005/2026", "url": "https://vestibular.puc-campinas.edu.br/edital-005-2026.pdf", "contexto": "normas regras do processo seletivo critérios"},
+    {"text": "Manual do Candidato em LIBRAS", "url": "https://vimeo.com/showcase/12385715", "contexto": "acessível para surdos língua de sinais acessibilidade"},
+    {"text": "Transferência Externa", "url": "https://puccampinasinscricao.crmeducacional.com/login/4009", "contexto": "formas de ingresso transferir de outra faculdade"},
+    {"text": "Portador de Diploma", "url": "https://puccampinasinscricao.crmeducacional.com/login/5011", "contexto": "formas de ingresso segunda graduação já tenho diploma"},
+    {"text": "Crédito Estudantil Pró-Futuro", "url": "https://creditoestudantil.puc-campinas.edu.br/", "contexto": "financiamento financiar a faculdade pagar depois de formado"},
+    {"text": "FIES", "url": "https://www.puc-campinas.edu.br/estudantes-da-puc-campinas-podem-solicitar-adesao-ao-fies-2026-2/", "contexto": "financiamento estudantil do governo financiar faculdade pagar depois"},
+    {"text": "Bolsa Vestibular Social", "url": "https://wl.sis.puc-campinas.edu.br/websist/portal/vestibularsocial/resultados.aspx", "contexto": "bolsa de estudo desconto na mensalidade bolsa 100 por cento"},
+    {"text": "Bolsas e Financiamentos", "url": "https://www.puc-campinas.edu.br/financiamento-bolsas/", "contexto": "bolsa de estudo prouni fies desconto mensalidade"},
+    {"text": "Central de Atendimento ao Aluno", "url": "https://www.puc-campinas.edu.br/caa/", "contexto": "fale conosco atendimento contato tirar dúvidas falar com alguém"},
+    {"text": "Contatos Oficiais", "url": "https://www.puc-campinas.edu.br/relacionamento/", "contexto": "fale conosco telefone email contato secretaria"},
+    {"text": "Programa de Acessibilidade", "url": "https://www.puc-campinas.edu.br/prograd/proaces/", "contexto": "atendimento especial recursos ledor prova ampliada pcd deficiência"},
+    {"text": "Provas Anteriores", "url": "https://vestibular.puc-campinas.edu.br/provas-anteriores/", "contexto": "provas antigas gabaritos estudar baixar provas"},
+    {"text": "Guia Universitário", "url": "https://vestibular.puc-campinas.edu.br/destaque/", "contexto": "cursos áreas profissões orientação vocacional"}
+  ]
+}

@@ -27,26 +27,38 @@ from ranqueadores import (  # noqa: E402
     carregar_sentence_transformer,
     ranquear_embeddings,
     ranquear_lexico,
+    tokens,
 )
+
+# Corpora de elementos (vendorados no protótipo p/ ser autocontido): cursos + portal transacional.
+ARQUIVOS_ELEMENTOS = ("elementos_cursos.json", "elementos_portal.json")
 
 
 def carregar_elementos() -> list[Elemento]:
-    dados = json.loads((RAIZ / "voice-nav-cli/data/vestibular.puc-campinas.edu.br.json").read_text(encoding="utf-8"))
     out, visto = [], set()
-    for l in dados["links"]:
-        texto = " ".join((l.get("text") or "").split())
-        url = l.get("url") or ""
-        if len(texto) < 3 or url in visto:
+    for arq in ARQUIVOS_ELEMENTOS:
+        caminho = AQUI / arq
+        if not caminho.exists():
             continue
-        visto.add(url)
-        out.append(Elemento(texto=texto, url=url))
+        for l in json.loads(caminho.read_text(encoding="utf-8")).get("links", []):
+            texto = " ".join((l.get("text") or "").split())
+            url = l.get("url") or ""
+            if len(texto) < 3 or url in visto:
+                continue
+            visto.add(url)
+            out.append(Elemento(texto=texto, url=url, contexto=l.get("contexto", "")))
     return out
 
 
+def _flat(s: str) -> str:
+    return " ".join(tokens(s))
+
+
 def resolver_alvo(alvo: str, elementos: list[Elemento]) -> Elemento | None:
-    """Elemento cujo slug contém `alvo`, escolhendo o slug mais curto (mais específico/base)."""
-    cands = [e for e in elementos if alvo in e.slug]
-    return min(cands, key=lambda e: len(e.slug)) if cands else None
+    """Elemento cujo texto enriquecido (busca) contém `alvo`, escolhendo o mais curto/específico."""
+    a = _flat(alvo)
+    cands = [e for e in elementos if a and a in _flat(e.busca)]
+    return min(cands, key=lambda e: len(e.busca)) if cands else None
 
 
 def posicao_do_alvo(ranking, alvo_el: Elemento) -> int:

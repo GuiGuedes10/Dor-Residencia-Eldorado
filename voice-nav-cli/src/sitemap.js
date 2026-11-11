@@ -16,18 +16,34 @@ async function fetchHtml(url) {
   return html;
 }
 
+// Lê um atributo do <a> (aria-label, title, href...) a partir da string de atributos da tag.
+const attr = (tag, name) => {
+  const m = tag.match(new RegExp(`${name}\\s*=\\s*["']([^"']*)["']`, 'i'));
+  return m ? strip(m[1]) : '';
+};
+
 function extractLinks(html, pageUrl, host) {
   const out = [];
   const title = strip((html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || '');
-  for (const m of html.matchAll(/<a\s[^>]*href=["']([^"'#]+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
+  for (const m of html.matchAll(/<a\s([^>]*)>([\s\S]*?)<\/a>/gi)) {
+    const tag = m[1];
+    const href = attr(tag, 'href');
+    if (!href || href.startsWith('#')) continue;
     let u;
-    try { u = new URL(m[1], pageUrl); } catch { continue; }
+    try { u = new URL(href, pageUrl); } catch { continue; }
     if (!/^https?:$/.test(u.protocol) || u.hostname !== host) continue;
     if (/\.(pdf|jpe?g|png|zip|docx?|xlsx?)$/i.test(u.pathname)) continue;
     const text = strip(m[2]);
-    if (text.length < 3 || text.length > 80) continue;
+    const aria = attr(tag, 'aria-label');
+    const titulo = attr(tag, 'title');
+    // Rótulo: usa o aria-label/title quando o texto visível é vazio ("Saiba mais"/ícone).
+    const rotulo = text || aria || titulo;
+    if (!rotulo || rotulo.length < 2 || rotulo.length > 100) continue;
+    // Contexto (enriquecimento p/ embeddings): aria-label + title + palavras do caminho da URL.
+    const contexto = [aria, titulo, decodeURIComponent(u.pathname).replace(/[^a-z0-9]+/gi, ' ')]
+      .map((s) => s.trim()).filter(Boolean).join(' ').trim();
     u.hash = '';
-    out.push({ text, url: u.href, from: title });
+    out.push({ text: rotulo, url: u.href, contexto, from: title });
   }
   return out;
 }

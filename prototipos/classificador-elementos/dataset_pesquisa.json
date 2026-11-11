@@ -1,7 +1,7 @@
 {
   "fonte": "Pesquisa Gemini Pro, verificada por Claude. Pares ancorados em guias vocacionais (Quero Bolsa, Guia do Estudante, Brasil Escola) e no FAQ/portal da PUC-Campinas. São paráfrases plausíveis ancoradas em fontes reais, NÃO logs de usuários reais.",
-  "fonte_elementos": "voice-nav-cli/data/vestibular.puc-campinas.edu.br.json (64 links reais da PUC)",
-  "nota": "presente_no_corpus=false → o elemento-alvo ainda NÃO está no crawl atual (só cursos + manual + resultados). Precisa crawlear o portal transacional (inscrição, bolsas, isenção...). O avaliar.py pula esses automaticamente.",
+  "fonte_elementos": "elementos_cursos.json (64 cursos) + elementos_portal.json (15 elementos transacionais, lidos das páginas públicas em 2026-11-11).",
+  "nota": "presente_no_corpus=false → alvo ainda fora do corpus. Após crawlear o portal público, 7 pares foram fechados; os 7 restantes (isenção, ENEM, cotas, boleto/2ª via, convocados, matrícula, reopção) NÃO têm link público (atrás de login ou em PDFs). O avaliar.py pula os false automaticamente.",
   "casos": [
     {"intencao": "quero ser advogado", "alvo": "curso/direito", "tipo": "semantico", "fonte": "Quero Bolsa – Carreiras", "presente_no_corpus": true},
     {"intencao": "quero ser juiz ou promotor", "alvo": "curso/direito", "tipo": "semantico", "fonte": "Quero Bolsa – Carreiras", "presente_no_corpus": true},
@@ -22,20 +22,20 @@
 
     {"intencao": "regras da prova e o que posso levar no dia do exame", "alvo": "manual-do-candidato", "tipo": "semantico", "fonte": "Portal PUC-Campinas", "presente_no_corpus": true},
     {"intencao": "baixar provas antigas e gabaritos para estudar", "alvo": "resultados/vestibular-2027", "tipo": "semantico", "fonte": "Portal PUC-Campinas / FUVEST", "presente_no_corpus": true},
+    {"intencao": "manual acessível em libras para surdos", "alvo": "libras", "tipo": "semantico", "fonte": "Portal PUC-Campinas", "presente_no_corpus": true},
+    {"intencao": "fazer minha inscrição no vestibular", "alvo": "inscricoes encerradas", "tipo": "semantico", "fonte": "PUC-Campinas – Inscrições", "presente_no_corpus": true},
+    {"intencao": "ver onde vai ser minha prova e imprimir o cartão de confirmação", "alvo": "cartao de confirmacao", "tipo": "semantico", "fonte": "Portal PUC-Campinas", "presente_no_corpus": true},
+    {"intencao": "preciso de atendimento especial, prova ampliada ou ledor", "alvo": "programa de acessibilidade", "tipo": "semantico", "fonte": "PUC-Campinas – PROACES", "presente_no_corpus": true},
+    {"intencao": "conseguir bolsa de estudo 100% ou desconto na mensalidade", "alvo": "vestibular social", "tipo": "semantico", "fonte": "PUC-Campinas – Bolsas", "presente_no_corpus": true},
+    {"intencao": "financiar a faculdade para pagar depois de formado", "alvo": "credito estudantil", "tipo": "semantico", "fonte": "PUC-Campinas – Financiamento", "presente_no_corpus": true},
+    {"intencao": "falar com o atendimento e saber o valor da mensalidade", "alvo": "central de atendimento", "tipo": "semantico", "fonte": "FAQ PUC-Campinas", "presente_no_corpus": true},
 
-    {"intencao": "manual acessível em libras para surdos", "alvo": "secao/manual-libras", "tipo": "semantico", "fonte": "Portal PUC-Campinas", "presente_no_corpus": false},
-    {"intencao": "fazer minha inscrição no vestibular", "alvo": "secao/inscricao", "tipo": "semantico", "fonte": "PUC-Campinas – Inscrições", "presente_no_corpus": false},
-    {"intencao": "ver onde vai ser minha prova e imprimir o cartão de confirmação", "alvo": "secao/cartao-confirmacao", "tipo": "semantico", "fonte": "Portal PUC-Campinas", "presente_no_corpus": false},
-    {"intencao": "não tenho dinheiro para a taxa e quero pedir isenção", "alvo": "secao/isencao-taxa", "tipo": "semantico", "fonte": "Comvest / Reddit r/enem", "presente_no_corpus": false},
-    {"intencao": "usar minha nota do enem para entrar sem fazer prova", "alvo": "secao/enem", "tipo": "semantico", "fonte": "Curso Objetivo – Enem-Unicamp", "presente_no_corpus": false},
-    {"intencao": "concorrer por cotas de escola pública, ppi ou pcd", "alvo": "secao/acoes-afirmativas", "tipo": "semantico", "fonte": "FUVEST / Comvest", "presente_no_corpus": false},
-    {"intencao": "preciso de atendimento especial, prova ampliada ou ledor", "alvo": "secao/atendimento-especial", "tipo": "semantico", "fonte": "Mackenzie / FUVEST", "presente_no_corpus": false},
-    {"intencao": "conseguir bolsa de estudo 100% ou desconto na mensalidade", "alvo": "secao/bolsas", "tipo": "semantico", "fonte": "PUC-Campinas – Bolsas", "presente_no_corpus": false},
-    {"intencao": "financiar a faculdade para pagar depois de formado", "alvo": "secao/fies", "tipo": "semantico", "fonte": "PUC-Campinas – Financiamento", "presente_no_corpus": false},
-    {"intencao": "emitir segunda via ou pagar o boleto da inscrição", "alvo": "secao/boleto", "tipo": "semantico", "fonte": "Mackenzie / Reddit r/enem", "presente_no_corpus": false},
-    {"intencao": "ver a lista de aprovados e saber se fui convocado", "alvo": "secao/convocados", "tipo": "semantico", "fonte": "Mackenzie / FUVEST", "presente_no_corpus": false},
-    {"intencao": "quais documentos preciso entregar para a matrícula", "alvo": "secao/matricula", "tipo": "semantico", "fonte": "FAQ PUC-Campinas", "presente_no_corpus": false},
-    {"intencao": "fui chamado mas quero trocar de curso", "alvo": "secao/reopcao", "tipo": "semantico", "fonte": "FAQ PUC-Campinas", "presente_no_corpus": false},
-    {"intencao": "falar com o atendimento e saber o valor da mensalidade", "alvo": "secao/fale-conosco", "tipo": "semantico", "fonte": "FAQ PUC-Campinas / UNESP", "presente_no_corpus": false}
+    {"intencao": "não tenho dinheiro para a taxa e quero pedir isenção", "alvo": "secao/isencao-taxa", "tipo": "semantico", "fonte": "Comvest / Reddit (atrás de login na PUC)", "presente_no_corpus": false},
+    {"intencao": "usar minha nota do enem para entrar sem fazer prova", "alvo": "secao/enem", "tipo": "semantico", "fonte": "Curso Objetivo (não público na PUC)", "presente_no_corpus": false},
+    {"intencao": "concorrer por cotas de escola pública, ppi ou pcd", "alvo": "secao/acoes-afirmativas", "tipo": "semantico", "fonte": "FUVEST / Comvest (não é link de graduação na PUC)", "presente_no_corpus": false},
+    {"intencao": "emitir segunda via ou pagar o boleto da inscrição", "alvo": "secao/boleto", "tipo": "semantico", "fonte": "Mackenzie / Reddit (atrás de login na PUC)", "presente_no_corpus": false},
+    {"intencao": "ver a lista de aprovados e saber se fui convocado", "alvo": "secao/convocados", "tipo": "semantico", "fonte": "Mackenzie / FUVEST (não publicado ainda na PUC)", "presente_no_corpus": false},
+    {"intencao": "quais documentos preciso entregar para a matrícula", "alvo": "secao/matricula", "tipo": "semantico", "fonte": "FAQ PUC-Campinas (atrás de login)", "presente_no_corpus": false},
+    {"intencao": "fui chamado mas quero trocar de curso", "alvo": "secao/reopcao", "tipo": "semantico", "fonte": "FAQ PUC-Campinas (atrás de login)", "presente_no_corpus": false}
   ]
 }

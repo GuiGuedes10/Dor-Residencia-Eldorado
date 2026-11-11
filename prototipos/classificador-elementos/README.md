@@ -1,88 +1,78 @@
 # Protótipo — Classificador de Elementos (por embeddings)
 
-Este protótipo ataca o **núcleo da visão da residência** ([contexto](../../docs/contexto_residencia_ia.md)):
+Ataca o **núcleo da visão da residência** ([contexto](../../docs/contexto_residencia_ia.md)):
 
 > _"A rede neural classifica os elementos HTML extraídos → qual botão/link é o próximo passo."_
 
-Hoje a extensão **não** faz isso: quem escolhe o link é a função `rankLinks` por **interseção de
-palavras** (lexical). Isso quebra em sinônimos ("quero ser **advogado**" não casa com "**Direito**").
-Aqui ficam o **contrato**, os **ranqueadores** (lexical vs. embeddings) e um **harness de avaliação
-por `success@k`** — prontos para rodar sobre **qualquer dataset** no formato padrão.
+Hoje a extensão escolhe o link por **interseção de palavras** (`rankLinks`), que quebra em
+sinônimos ("quero ser **advogado**" ≠ "**Direito**"). Aqui estão o **contrato**, os
+**ranqueadores** (lexical vs. embeddings), um **corpus de elementos reais da PUC** e um
+**harness de avaliação por `success@k`**.
 
 ## Contrato (entrada → saída)
 
 ```
 Entrada:
-  intenção : str                       # ex.: "quero ser advogado"
-  elementos: [{texto, url}]            # links/botões extraídos da página (DOM)
+  intenção : str                                   # ex.: "quero ser advogado"
+  elementos: [{texto, url, contexto}]              # elementos da página (DOM)
 Saída:
-  ranking  : [(elemento, score)]       # ordenado: o 1º é o alvo mais provável
+  ranking  : [(elemento, score)]                   # ordenado: o 1º é o alvo mais provável
 ```
 
-No futuro, `elementos` inclui também `aria-label`, `title`, `classes` e o seletor DOM,
-e a saída alimenta o destaque visual na extensão (substituindo o `rankLinks`).
+`contexto` é o **enriquecimento** recomendado pela pesquisa (ver REFERENCIAS): `aria-label`,
+`title`, heading da seção e palavras do `href`. Resolve o caso real de botões com texto pobre
+("Saiba mais", "clique aqui"), comum em portais universitários.
 
 ## Arquivos
 
 | Arquivo | Papel |
 |---|---|
-| [`ranqueadores.py`](ranqueadores.py) | Baseline lexical + `TfidfEmbedder` (palavras [+ n-gramas de caractere]) + adaptador `SentenceTransformerEmbedder` (opcional) |
-| [`avaliar.py`](avaliar.py) | Roda cada estratégia sobre um dataset e calcula `success@1`, `success@3` e MRR |
-| [`dataset.json`](dataset.json) | Conjunto **de exemplo**, pequeno e curado à mão (20 casos), só para sanity-check do harness |
+| [`ranqueadores.py`](ranqueadores.py) | Baseline lexical + `TfidfEmbedder` (palavras [+ char n-gram]) + adaptador `SentenceTransformerEmbedder` (opcional). Usa `texto + contexto + href`. |
+| [`avaliar.py`](avaliar.py) | Harness `success@1/@3` + MRR; aceita um dataset por argumento; pula alvos ausentes do corpus. |
+| [`elementos_cursos.json`](elementos_cursos.json) | 64 links reais de cursos (crawl do portal do vestibular). |
+| [`elementos_portal.json`](elementos_portal.json) | 15 elementos do **fluxo transacional** (inscrição, cartão, LIBRAS, bolsas, FIES, crédito, atendimento…), lidos das páginas públicas em 2026-11-11, com `contexto`. |
+| [`dataset_pesquisa.json`](dataset_pesquisa.json) | 32 pares reais `intenção→alvo` (da pesquisa web, verificada). |
+| [`dataset.json`](dataset.json) | 20 casos curados à mão (sanity-check). |
+| [`REFERENCIAS.md`](REFERENCIAS.md) | Datasets/papers da pesquisa **verificados na web**, com status e licenças. |
 
-## Dados — vêm de pesquisa na web, não de geração sintética
+## Dados — reais, da web
 
-O dataset de verdade será montado a partir de **pesquisa na internet** (guias de profissões,
-FAQs de vestibular, benchmarks e artigos), com **fontes citadas**, avaliado e normalizado para
-o formato abaixo. O `avaliar.py` aceita qualquer arquivo nesse formato:
-
-```json
-{ "casos": [ {"intencao": "quero ser advogado", "alvo": "curso/direito", "tipo": "semantico"} ] }
-```
-
-- `alvo` = trecho distintivo do slug do link correto (o avaliador casa pelo slug mais curto que o contém).
-- `tipo` = `lexical` (a palavra aparece no link) ou `semantico` (sinônimo/paráfrase).
+- **Cursos + portal** foram lidos das páginas públicas da PUC-Campinas.
+- **Descoberta honesta:** parte do fluxo transacional é pública (cartão, LIBRAS, bolsa social,
+  FIES, crédito, CAA, acessibilidade), mas **isenção de taxa, boleto/2ª via, cotas, convocados e
+  matrícula estão atrás de login** — por isso 7 pares do dataset ficam `presente_no_corpus=false`
+  (um limite real do crawl público, não uma falha do método).
+- Os pares são **paráfrases ancoradas em fontes** (Quero Bolsa, Guia do Estudante, FAQ PUC), não
+  logs de usuários — validar depois com voz/paráfrases reais.
 
 ## Como rodar
 
 ```bash
-# sanity-check com o conjunto de exemplo
-python3 prototipos/classificador-elementos/avaliar.py
-
-# avaliar um dataset próprio (ex.: o montado a partir da pesquisa)
-python3 prototipos/classificador-elementos/avaliar.py meu_dataset.json
+python3 prototipos/classificador-elementos/avaliar.py dataset_pesquisa.json   # pares reais
+python3 prototipos/classificador-elementos/avaliar.py                         # dataset.json (sanity)
+pip install sentence-transformers   # adiciona a coluna de embeddings neurais (~0,5 GB)
 ```
 
-Para o salto semântico real (embeddings neurais multilíngues):
+## Resultados
 
-```bash
-pip install sentence-transformers   # baixa ~0,5 GB na 1ª vez
-```
-
-A coluna `sentence-transformers` passa a aparecer automaticamente na avaliação.
-
-## Resultados (exemplo — 64 links reais da PUC, 20 casos de sanity-check)
+**`dataset_pesquisa.json` — 25 pares reais com alvo no corpus (7 pulados, atrás de login); todos semânticos:**
 
 | Estratégia | succ@1 | succ@3 | MRR |
 |---|---|---|---|
-| baseline lexical (`rankLinks` de hoje) | 45% | 50% | 0.49 |
-| TF-IDF (palavras) | 40% | 50% | 0.47 |
-| **TF-IDF (palavras + n-gramas de caractere)** | **55%** | **60%** | **0.60** |
-| sentence-transformers | _(instale a lib)_ | | |
+| baseline lexical (`rankLinks`) | 36% | 44% | 0.42 |
+| TF-IDF (palavras) | 36% | 36% | 0.40 |
+| **TF-IDF (palavras + char n-gram)** | **56%** | **68%** | **0.63** |
+| sentence-transformers | _(em medição — instale a lib)_ | | |
 
-> Conjunto minúsculo (20 casos): serve só para **validar o harness e a metodologia**.
-> Os números que valem virão quando o **dataset real** (da pesquisa na web) estiver montado.
+Leitura: char n-gram quase **dobra** o baseline e acerta **68% no top-3**. Os ~11 erros de top-1
+são sinônimos puros (advogado→Direito, dentista→Odontologia) — o trabalho do `sentence-transformers`.
 
 ## Próximos passos
 
-1. **Montar o dataset real** a partir de pesquisa na web (fontes citadas), normalizado para
-   `{intencao, alvo, fonte, tipo}` — avaliado criticamente antes de entrar.
-2. **Instalar `sentence-transformers`** e medir o ganho nos casos semânticos.
-3. **Enriquecer os elementos** com `aria-label`, `title` e `classes` (não só o texto visível).
-4. **Integrar no produto**: trocar o `rankLinks` lexical ([extension/content.js](../../extension/content.js))
-   por este ranqueamento semântico, mantendo o fallback lexical offline.
-5. Reaproveitar a infra de [`reia/neural/semantic_search.py`](../../reia/neural/semantic_search.py)
-   (embedders + store vetorial com ChromaDB).
-
-Relaciona-se ao roadmap (Médio prazo → _"Embeddings de elementos do DOM"_) e à métrica `success@k`
-(Curto prazo → _"Avaliação"_).
+1. **Medir com `sentence-transformers`** (bge-m3 / Serafim / BERTimbau fine-tunado) no mesmo harness.
+2. **Crawlear o fluxo logado** (ou obter o mapa oficial) para fechar os 7 pares restantes.
+3. **Ampliar o dataset** com FaQuAD-NLI (pt-BR) + paráfrases/voz reais.
+4. **Integrar no produto**: trocar o `rankLinks` por este ranqueamento, com `contexto` do DOM
+   (o crawler [`sitemap.js`](../../voice-nav-cli/src/sitemap.js) já captura `aria-label`/`title`/href).
+5. **Arquitetura de 2 estágios** (ver [REFERENCIAS.md](REFERENCIAS.md): Mind2Web, PageGuide, WebNavigator),
+   com bi-encoder quantizado on-device na extensão.

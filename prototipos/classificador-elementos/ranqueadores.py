@@ -31,10 +31,16 @@ from typing import Dict, List, Optional, Protocol, Tuple
 class Elemento:
     texto: str
     url: str = ""
+    contexto: str = ""  # enriquecimento: aria-label, title, heading ancestral, palavras do href
 
     @property
     def slug(self) -> str:
         return re.sub(r"^https?://[^/]+", "", self.url)
+
+    @property
+    def busca(self) -> str:
+        """Texto serializado para ranqueamento: visível + contexto + slug como palavras."""
+        return f"{self.texto} {self.contexto} {self.slug.replace('/', ' ')}".strip()
 
 
 # ---------------------------------------------------------------------------
@@ -65,7 +71,7 @@ def ranquear_lexico(consulta: str, elementos: List[Elemento]) -> List[Tuple[Elem
     q = set(tokens(consulta))
     scored = []
     for el in elementos:
-        alvo = tokens(el.texto + " " + el.slug)
+        alvo = tokens(el.busca)
         hit = sum(1 for w in alvo if w in q)
         score = hit / math.sqrt(len(alvo) or 1)
         scored.append((el, score))
@@ -157,11 +163,11 @@ class SentenceTransformerEmbedder:
 def ranquear_embeddings(
     consulta: str, elementos: List[Elemento], embedder: Embedder
 ) -> List[Tuple[Elemento, float]]:
-    embedder.fit([el.texto + " " + el.slug.replace("/", " ") for el in elementos])
+    embedder.fit([el.busca for el in elementos])
     qv = embedder.vetor(consulta)
     scored = []
     for el in elementos:
-        ev = embedder.vetor(el.texto + " " + el.slug.replace("/", " "))
+        ev = embedder.vetor(el.busca)
         scored.append((el, cosseno_esparso(qv, ev)))
     scored.sort(key=lambda x: x[1], reverse=True)
     return scored

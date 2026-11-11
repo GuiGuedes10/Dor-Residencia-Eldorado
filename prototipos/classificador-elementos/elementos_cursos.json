@@ -1,0 +1,327 @@
+{
+  "site": "https://vestibular.puc-campinas.edu.br",
+  "mapeadoEm": "2026-11-11T06:58:51.918Z",
+  "paginas": 25,
+  "links": [
+    {
+      "text": "Livretes de Questões e Gabaritos - Vestibular 2027 1º Semestre (23 e 24/10)",
+      "url": "https://vestibular.puc-campinas.edu.br/resultados/vestibular-2027/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Manual do Candidato",
+      "url": "https://vestibular.puc-campinas.edu.br/manual-do-candidato/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Destaques",
+      "url": "https://vestibular.puc-campinas.edu.br/destaque/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Administração",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/administracao/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Administração - Marketing e Inovação",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/administracao-marketing-e-inovacao/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Administração – Comércio Exterior",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/administracao-comercio-exterior/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Administração – Finanças Corporativas e Mercado de Capitais",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/administracao-financas-corporativas-e-mercado-de-capitais/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Arquitetura e Urbanismo",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/arquitetura-e-urbanismo/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Artes Visuais - Ênfase em Arte e Tecnologia – Bacharelado",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/artes-visuais-bacharelado/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Artes Visuais – Licenciatura",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/artes-visuais-licenciatura/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Biomedicina",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/biomedicina/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Cibersegurança - Bacharelado",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/ciberseguranca/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Ciência de dados e Inteligência Artificial",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/ciencia-de-dados-e-inteligencia-artificial/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Ciências Biológicas – Bacharelado",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/ciencias-biologicas-bacharelado/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Ciências Biológicas – Licenciatura",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/ciencias-biologicas-licenciatura/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Ciências Contábeis",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/ciencias-contabeis/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Ciências Econômicas",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/ciencias-economicas/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Novo Cinema e Audiovisual",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/cinema-e-audiovisual/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Novo Design de Games",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/design-de-games/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Design de Moda",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/design-de-moda/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Design Digital",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/design-digital/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Direito",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/direito/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Educação Física – Bacharelado",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/educacao-fisica-bacharelado/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Educação Física – Licenciatura",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/educacao-fisica-licenciatura/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Enfermagem",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/enfermagem/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia Agronômica",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-agronomica/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia Ambiental e Sanitária",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-ambiental-e-sanitaria/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia Biomédica",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-biomedica/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia Civil",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-civil/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia de Alimentos",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-de-alimentos/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia de Computação",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-de-computacao/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia de Controle e Automação",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-de-controle-e-automacao/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia de Produção",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-de-producao/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia de Software",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-de-software/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia Elétrica",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-eletrica/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia Mecânica",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-mecanica/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Engenharia Química",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/engenharia-quimica/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Farmácia",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/farmacia/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Filosofia – Bacharelado",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/filosofia-bacharelado/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Filosofia – Licenciatura",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/filosofia-licenciatura/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Fisioterapia",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/fisioterapia/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Fonoaudiologia",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/fonoaudiologia/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Gastronomia (Superior de Tecnologia)",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/gastronomia/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Gestão da Tecnologia da Informação (Superior de Tecnologia)",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/gestao-da-tecnologia-da-informacao/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "História – Bacharelado",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/historia-bacharelado/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "História – Licenciatura",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/historia-licenciatura/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Jornalismo",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/jornalismo/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Letras: Português/Inglês – Bacharelado",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/letras-portugues-ingles-bacharelado/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Letras: Português/Inglês – Licenciatura",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/letras-portugues-ingles-licenciatura/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Matemática - Ênfase em Informática Educativa",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/matematica/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Medicina",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/medicina/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Medicina Veterinária",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/medicina-veterinaria/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Nutrição",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/nutricao/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Odontologia",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/odontologia/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Pedagogia",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/pedagogia/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Psicologia",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/psicologia/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Publicidade e Propaganda",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/publicidade-e-propaganda/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Química - Ênfase em Química Tecnológica",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/quimica/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Relações Internacionais",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/relacoes-internacionais/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Relações Públicas",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/relacoes-publicas/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Serviço Social",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/servico-social/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Sistemas de Informação",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/sistemas-de-informacao/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Tecnologia da Informação para Negócios Digitais",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/tecnologia-da-informacao-para-negocios-digitais/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    },
+    {
+      "text": "Terapia Ocupacional",
+      "url": "https://vestibular.puc-campinas.edu.br/curso/terapia-ocupacional/",
+      "from": "Portal PUC-Campinas &#8211; Vestibular 2027"
+    }
+  ]
+}
