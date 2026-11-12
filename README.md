@@ -202,7 +202,7 @@ O runner standalone roda em Python puro (sem PyTorch/Selenium), provando o camin
 
 **🔧 Médio prazo — robustez e produto**
 - [ ] **Robustez a SPAs / conteúdo dinâmico:** `MutationObserver` + re-ranqueamento quando a página muda.
-- [ ] **Embeddings de elementos do DOM** (sentence-transformers) no lugar do ranking lexical — fecha a visão original do projeto.
+- [x] **Embeddings de elementos do DOM** (TF-IDF char-ngram + sentence-transformers via Transformers.js, on-device) no lugar do ranking lexical — **feito** (validado: 56%→68% succ@1; fase 2 confirmada no Chrome).
 - [ ] Onboarding de primeiro uso + personalização de acessibilidade (tamanho de fonte, velocidade da voz, alto contraste)
 - [ ] Mapa verificado por instituição/estado (URLs e seções oficiais)
 - [ ] Novos tópicos: cursos de extensão/FIC e concursos (docente/técnico)

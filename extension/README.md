@@ -38,8 +38,8 @@ Validado com links reais da PUC ([`../prototipos/classificador-elementos/`](../p
 > refina com **embeddings neurais** (`sentence-transformers` via **Transformers.js** num documento offscreen,
 > 68% no protótipo): o TF-IDF aparece na hora e, quando o modelo responde, as opções são **reordenadas**.
 > Para habilitar: `sh vendor/baixar.sh` (baixa a lib + ONNX Runtime, ~22 MB, não versionados) e recarregue a
-> extensão; o modelo (~100 MB) baixa do HF na 1ª consulta. Sem isso, fica no TF-IDF — nada quebra. Ainda
-> precisa de teste no Chrome; para a loja, versione os arquivos de `vendor/` (lojas não aceitam código remoto).
+> extensão; o modelo (~100 MB) baixa do HF na 1ª consulta. Sem isso, fica no TF-IDF — nada quebra.
+> **Confirmado funcionando no Chrome.** Para a loja, versione os arquivos de `vendor/` (lojas não aceitam código remoto).
 
 ## As duas redes neurais
 
