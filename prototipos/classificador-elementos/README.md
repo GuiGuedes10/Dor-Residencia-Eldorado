@@ -35,6 +35,7 @@ Saída:
 | [`dataset.json`](dataset.json) | 20 casos curados à mão (sanity-check). |
 | [`REFERENCIAS.md`](REFERENCIAS.md) | Datasets/papers da pesquisa **verificados na web**, com status e licenças. |
 | [`fine_tune.py`](fine_tune.py) | Experimento de fine-tune (`MultipleNegativesRankingLoss`, loop manual): zero-shot vs adaptado. |
+| [`montar_dataset.py`](montar_dataset.py) · [`coleta_template.csv`](coleta_template.csv) | Pipeline de coleta: valida pares reais contra o corpus e gera o split treino/teste. |
 
 ## Dados — reais, da web
 
@@ -88,6 +89,33 @@ usando *data augmentation ancorada* (nome do curso + profissão/ação → eleme
 ambos), então serve para **direção**, não como medida limpa. Conclusão: **adaptar o encoder ao
 domínio vale muito** — o passo seguinte é um **conjunto rotulado real maior** (voz/paráfrases) para
 validar sem overlap, e aí exportar o modelo para ONNX e plugar na extensão (Fase 2).
+
+## Coletar mais dados reais (pipeline)
+
+O ganho do fine-tune precisa ser validado com **pares reais**, sem overlap com a augmentation.
+Pipeline repetível:
+
+1. **Colete:** copie [`coleta_template.csv`](coleta_template.csv) → `coleta.csv` e preencha 1 linha
+   por par real (`intencao,alvo,fonte,tipo`). Fontes: equipe, usuários de teste e a pesquisa web.
+2. **Monte:** `python3 montar_dataset.py` — valida cada alvo contra o corpus, deduplica e gera
+   `dataset_treino.json` / `dataset_teste.json` (split 80/20, **teste só com pares reais**).
+3. **Meça:** `python3 avaliar.py dataset_teste.json` e re-rode o `fine_tune.py`.
+
+Mire **100+ pares** variados por abordagem — quanto mais real e diverso, mais confiável o número.
+
+### Prompt para o Gemini (colher frases reais)
+
+```text
+Você é um pesquisador. Pesquise na web, com FONTES (URLs), e devolva um CSV com colunas
+intencao,alvo,fonte,tipo contendo 80+ pares REAIS de "como a pessoa pede" → curso/seção do
+vestibular, em pt-BR coloquial. Foque em: profissão→curso (dentista→odontologia), dúvidas
+operacionais→seção (isenção de taxa, boleto, cartão de confirmação, bolsas, matrícula) e
+paráfrases de fóruns (Reddit r/enem, Brainly) e guias (Quero Bolsa, Guia do Estudante).
+alvo = trecho do slug do elemento (ex.: curso/direito, odontologia, manual-do-candidato,
+vestibular-social, central-de-atendimento). Cite a fonte de cada par e NÃO invente frases.
+```
+
+Traga o CSV de volta ao Claude para verificar as fontes e normalizar antes de virar `coleta.csv`.
 
 ## Próximos passos
 

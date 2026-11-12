@@ -95,3 +95,8 @@ voice-nav-cli/data/*.json
 extension/vendor/*.js
 extension/vendor/*.mjs
 extension/vendor/*.wasm
+
+# Protótipo do classificador: splits gerados (regeneráveis) e modelo fine-tunado (grande)
+prototipos/classificador-elementos/dataset_treino.json
+prototipos/classificador-elementos/dataset_teste.json
+prototipos/classificador-elementos/modelo-finetunado/

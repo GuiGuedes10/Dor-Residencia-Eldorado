@@ -1,0 +1,8 @@
+intencao,alvo,fonte,tipo
+# COPIE este arquivo para coleta.csv e preencha 1 linha por par. Apague as linhas de exemplo abaixo.
+# intencao = como a pessoa REALMENTE pediria (voz/texto coloquial).
+# alvo = trecho distintivo do slug do elemento certo. Cursos: curso/direito curso/medicina odontologia medicina-veterinaria ciberseguranca ciencia-de-dados engenharia-de-software psicologia enfermagem nutricao gastronomia design-de-games arquitetura-e-urbanismo etc. Portal: manual-do-candidato vestibular-2027 libras cartao-de-confirmacao vestibular-social credito-estudantil central-de-atendimento programa-de-acessibilidade.
+# tipo = lexical (a palavra aparece no elemento) ou semantico (sinonimo/parafrase).
+quero ser advogado,curso/direito,aluno NEES,semantico
+onde vejo o resultado e o gabarito do vestibular,vestibular-2027,colega,semantico
+preciso de prova ampliada por conta da baixa visao,programa de acessibilidade,usuario teste,semantico
