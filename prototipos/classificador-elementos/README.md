@@ -34,6 +34,7 @@ Saída:
 | [`dataset_pesquisa.json`](dataset_pesquisa.json) | 32 pares reais `intenção→alvo` (da pesquisa web, verificada). |
 | [`dataset.json`](dataset.json) | 20 casos curados à mão (sanity-check). |
 | [`REFERENCIAS.md`](REFERENCIAS.md) | Datasets/papers da pesquisa **verificados na web**, com status e licenças. |
+| [`fine_tune.py`](fine_tune.py) | Experimento de fine-tune (`MultipleNegativesRankingLoss`, loop manual): zero-shot vs adaptado. |
 
 ## Dados — reais, da web
 
@@ -69,6 +70,24 @@ Leitura: os **embeddings neurais vencem** — quase **dobram** o baseline no suc
 ou rótulos discutíveis — ex.: para _"baixar provas antigas e gabaritos"_ o modelo escolheu
 **"Provas Anteriores"**, tão ou mais correta que o alvo anotado. Conclusão: **vale adotar embeddings**
 no lugar do ranking lexical (idealmente um encoder pt-BR fine-tunado — ver [REFERENCIAS.md](REFERENCIAS.md)).
+
+## Fine-tune (experimento)
+
+[`fine_tune.py`](fine_tune.py) adapta o encoder ao domínio com `MultipleNegativesRankingLoss`,
+usando *data augmentation ancorada* (nome do curso + profissão/ação → elemento) e split 80/20:
+
+| | succ@1 | succ@3 |
+|---|---|---|
+| zero-shot (teste aumentado, limpo) | 81% | 94% |
+| **fine-tunado (teste aumentado)** | **97%** | **100%** |
+| zero-shot (pares reais, difícil) | 68% | 84% |
+| fine-tunado (pares reais) | 84%\* | 92%\* |
+
+**+16 pontos de succ@1** no teste limpo (held-out 80/20). \*No teste de **pares reais** o ganho é
+**otimista**: há overlap de mapeamento entre a augmentation e o teste (ex.: *advogado→Direito* em
+ambos), então serve para **direção**, não como medida limpa. Conclusão: **adaptar o encoder ao
+domínio vale muito** — o passo seguinte é um **conjunto rotulado real maior** (voz/paráfrases) para
+validar sem overlap, e aí exportar o modelo para ONNX e plugar na extensão (Fase 2).
 
 ## Próximos passos
 
