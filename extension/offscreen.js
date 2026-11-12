@@ -18,17 +18,19 @@ async function getExtractor() {
       env.backends.onnx.wasm.numThreads = 1;                            // 1 thread: dispensa cross-origin isolation
       env.backends.onnx.wasm.wasmPaths = chrome.runtime.getURL('vendor/'); // ORT WASM local (self)
       // 1) tenta o modelo fine-tunado no domínio (se vendorado em vendor/modelo/reia-finetunado/)
+      // dtype 'q8' = int8 quantizado (arquivo onnx/model_quantized.onnx). Na Transformers.js v3
+      // o antigo { quantized: true } é ignorado; sem dtype ela só avisa e assume q8 no WASM.
       try {
         env.allowLocalModels = true;
         env.localModelPath = chrome.runtime.getURL('vendor/modelo/');
-        const ex = await pipeline('feature-extraction', 'reia-finetunado', { quantized: true });
+        const ex = await pipeline('feature-extraction', 'reia-finetunado', { dtype: 'q8' });
         console.info('[REIA] modelo neural: FINE-TUNE LOCAL (vendor/modelo/reia-finetunado)');
         return ex;
       } catch (e) {
         // 2) fallback: modelo multilíngue genérico do HF Hub (Fase 2 padrão, já validada)
         console.warn(`[REIA] modelo local indisponível (${(e && e.message) || e}); usando FALLBACK genérico ${MODELO}`);
         env.allowLocalModels = false;
-        return pipeline('feature-extraction', MODELO, { quantized: true });
+        return pipeline('feature-extraction', MODELO, { dtype: 'q8' });
       }
     })();
   }
