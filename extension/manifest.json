@@ -2,8 +2,12 @@
   "manifest_version": 3,
   "name": "Dør",
   "description": "Controle flutuante acessível: fale o que procura e escolha entre até 4 links. Um halo de cor (vermelho→âmbar→azul) guia o mouse até o alvo certo.",
-  "version": "1.0.0",
-  "permissions": ["storage"],
+  "version": "1.1.0",
+  "permissions": ["storage", "offscreen"],
+  "background": { "service_worker": "background.js" },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; object-src 'self'; connect-src 'self' https://cdn.jsdelivr.net https://huggingface.co https://*.hf.co https://cdn-lfs.huggingface.co https://cdn-lfs-us-1.huggingface.co"
+  },
   "content_scripts": [
     {
       "matches": ["https://*/*", "http://*/*"],

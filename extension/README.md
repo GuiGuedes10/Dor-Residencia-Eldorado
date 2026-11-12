@@ -34,8 +34,12 @@ Validado com links reais da PUC ([`../prototipos/classificador-elementos/`](../p
 **56% de acerto no topo‑1 vs 36% da interseção de palavras** (68% no top‑3). Demo interativa:
 [`../docs/extension-ranker-demo.html`](../docs/extension-ranker-demo.html).
 
-> Sinônimos puros (*advogado* → Direito) são o limite deste ranqueador leve. A **fase 2** é trocá‑lo
-> por **embeddings neurais** (sentence-transformers, 68%) via Transformers.js, mantendo tudo on-device.
+> Sinônimos puros (*advogado* → Direito) são o limite do ranqueador leve. A **fase 2** (já implementada,
+> *experimental*) refina com **embeddings neurais** (`sentence-transformers` via **Transformers.js** num
+> documento offscreen, 68% no protótipo): o TF-IDF aparece na hora e, quando o modelo responde, as opções
+> são **reordenadas**. O modelo (~100 MB) é baixado do HF na 1ª vez e fica em cache; se não estiver pronto,
+> continua no TF-IDF — nada quebra. **Ainda precisa de teste no Chrome** (não dá para validar o modelo fora
+> do navegador). Para publicar na loja, empacote o Transformers.js localmente (lojas não aceitam código remoto).
 
 ## As duas redes neurais
 
@@ -68,6 +72,7 @@ Nada sai do navegador; dá para **Exportar dados (JSON)** e **Apagar dados** qua
 | `manifest.json` | Manifest V3; permissões, content scripts, página de opções |
 | `content.js` | Modal acessível + ranqueamento semântico dos links + modo guia (halo) |
 | `tfidf.js` | Ranqueador semântico on-device (TF-IDF char-ngram, `ReiaRank.rank`) |
+| `background.js` · `offscreen.html` · `offscreen.js` | Fase 2: modelo de embeddings neurais (Transformers.js) + relé |
 | `nn.js` | Rede do halo (`features`/`predict`/`train`) e a **escala de cor** `color(w)` |
 | `train.html` · `train.js` | Coleta e treino da rede do halo |
 | `models/intent.json` | Pesos do classificador de tópicos |
@@ -80,5 +85,7 @@ segura para daltonismo e pistas além da cor. Detalhes e critérios WCAG em
 
 ## Privacidade
 
-Voz pela Web Speech API do navegador; dados de treino e modelo só em `chrome.storage.local`.
-Sem telemetria, sem chamadas externas. Ver [`../SECURITY.md`](../SECURITY.md).
+Voz pela Web Speech API do navegador; dados de treino do halo só em `chrome.storage.local`.
+Suas consultas e os links da página são processados **localmente** — nada é enviado a servidores
+nossos, sem telemetria. Exceção (Fase 2): o **modelo** de embeddings é baixado uma vez do Hugging
+Face e fica em cache no navegador; a inferência roda on-device. Ver [`../SECURITY.md`](../SECURITY.md).

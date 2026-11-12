@@ -186,8 +186,7 @@
   }
 
   // ---------- sugestões (≤ 4) ----------
-  function suggest(query) {
-    const { top, topic } = rankLinks(query);
+  function renderOpts(top, topic) {
     opts.innerHTML = '';
     if (topic) {
       const pct = Math.round(topic.confidence * 100);
@@ -209,6 +208,28 @@
     });
     if (!top.length) { meter.classList.remove('on'); say('Nenhum link encontrado nesta página. Tente outras palavras.'); }
     opts.firstChild?.focus();
+  }
+
+  function suggest(query) {
+    const { top, topic } = rankLinks(query); // TF-IDF instantâneo (offline, sempre funciona)
+    renderOpts(top, topic);
+    refineNeural(query, topic);              // Fase 2: refina com embeddings neurais, se disponível
+  }
+
+  // Fase 2 — refino opcional por embeddings neurais (Transformers.js no documento offscreen).
+  // Progressivo e tolerante a falha: se o modelo não estiver pronto, mantém o resultado TF-IDF.
+  const dot = (a, b) => { let s = 0, n = Math.min(a.length, b.length); for (let i = 0; i < n; i++) s += a[i] * b[i]; return s; };
+  async function refineNeural(query, topic) {
+    const links = pageLinks();
+    if (!links.length || !(chrome.runtime && chrome.runtime.sendMessage)) return;
+    const q = query + ' ' + (topic && topic.confidence > 0.5 ? SINONIMOS[topic.topic] || '' : '');
+    try {
+      const res = await chrome.runtime.sendMessage({ type: 'reia-rank-embed', texts: [q, ...links.map((l) => l.busca)] });
+      if (!res || !res.ok || !Array.isArray(res.vectors) || res.vectors.length !== links.length + 1) return;
+      const [qv, ...lvs] = res.vectors;
+      const scored = links.map((l, i) => ({ l, s: dot(qv, lvs[i]) })).sort((a, b) => b.s - a.s);
+      renderOpts(scored.slice(0, 4).map((x) => x.l), topic); // re-render refinado pelo modelo
+    } catch { /* sem modelo disponível: permanece no TF-IDF */ }
   }
 
   // ---------- modo guia: halo muda de cor conforme o mouse se aproxima ----------
