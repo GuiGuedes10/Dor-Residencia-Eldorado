@@ -21,9 +21,12 @@ async function getExtractor() {
       try {
         env.allowLocalModels = true;
         env.localModelPath = chrome.runtime.getURL('vendor/modelo/');
-        return await pipeline('feature-extraction', 'reia-finetunado', { quantized: true });
-      } catch (_) {
+        const ex = await pipeline('feature-extraction', 'reia-finetunado', { quantized: true });
+        console.info('[REIA] modelo neural: FINE-TUNE LOCAL (vendor/modelo/reia-finetunado)');
+        return ex;
+      } catch (e) {
         // 2) fallback: modelo multilíngue genérico do HF Hub (Fase 2 padrão, já validada)
+        console.warn(`[REIA] modelo local indisponível (${(e && e.message) || e}); usando FALLBACK genérico ${MODELO}`);
         env.allowLocalModels = false;
         return pipeline('feature-extraction', MODELO, { quantized: true });
       }
