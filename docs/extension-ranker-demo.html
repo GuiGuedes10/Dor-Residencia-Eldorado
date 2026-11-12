@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dør — Ranqueador semântico (demo)</title>
+<!-- Mesmo algoritmo de extension/tfidf.js, embutido para a demo rodar standalone (file://). -->
+<script>
+var ReiaRank = (() => {
+  const norm = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const tokens = (s) => norm(s).match(/[a-z0-9]+/g) || [];
+  function charNgrams(w) {
+    const p = `<${w}>`, out = [];
+    for (let n = 3; n <= 4; n++) for (let i = 0; i + n <= p.length; i++) out.push('#' + p.slice(i, i + n));
+    return out;
+  }
+  function features(text) {
+    const ws = tokens(text).filter((w) => w.length >= 3);
+    const f = ws.slice();
+    for (let i = 0; i < ws.length - 1; i++) f.push(ws[i] + '_' + ws[i + 1]);
+    for (const w of ws) for (const g of charNgrams(w)) f.push(g);
+    return f;
+  }
+  function fit(docs) {
+    const df = new Map(), N = docs.length || 1;
+    const featsList = docs.map(features);
+    for (const feats of featsList) for (const f of new Set(feats)) df.set(f, (df.get(f) || 0) + 1);
+    const idf = (f) => Math.log((N + 1) / ((df.get(f) || 0) + 1)) + 1;
+    const vec = (feats) => {
+      const v = new Map();
+      for (const f of feats) v.set(f, (v.get(f) || 0) + idf(f));
+      let n = 0; for (const x of v.values()) n += x * x;
+      n = Math.sqrt(n) || 1;
+      for (const [k, x] of v) v.set(k, x / n);
+      return v;
+    };
+    return { vec, docVecs: featsList.map(vec) };
+  }
+  function cosine(a, b) {
+    const [s, l] = a.size <= b.size ? [a, b] : [b, a];
+    let d = 0; for (const [k, v] of s) d += v * (l.get(k) || 0);
+    return d;
+  }
+  function rank(query, docs) {
+    const { vec, docVecs } = fit(docs);
+    const qv = vec(features(query));
+    return docVecs.map((v, i) => ({ i, score: cosine(qv, v) })).sort((a, b) => b.score - a.score);
+  }
+  return { tokens, features, fit, cosine, rank };
+})();
+</script>
+<style>
+  :root{ --bg:#0e1016; --panel:#141824; --ink:#f4f7fb; --muted:#aeb8c8; --line:rgba(255,255,255,.1);
+         --blue:rgb(37,109,235); --amber:rgb(245,183,24); --accent:#8fd0ff; }
+  @media (prefers-color-scheme: light){ :root{ --bg:#eef1f6; --panel:#fff; --ink:#10141c; --muted:#5a6676; --line:rgba(0,0,0,.1); } }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);padding:28px 18px;line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto}
+  h1{font-size:24px;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 20px;font-size:15px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+  input{width:100%;min-height:52px;padding:12px 16px;font-size:18px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+  input:focus{outline:3px solid var(--accent);border-color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+  .chip{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+  .chip:hover{color:var(--ink);border-color:var(--accent)}
+  ol{list-style:none;padding:0;margin:16px 0 0;counter-reset:r}
+  li{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;margin:8px 0;border:1px solid var(--line)}
+  li.top{border-color:var(--blue);background:color-mix(in srgb, var(--blue) 12%, transparent)}
+  .pos{flex:0 0 26px;height:26px;border-radius:7px;background:var(--line);color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+  li.top .pos{background:var(--blue);color:#fff}
+  .lbl{flex:1}.lbl b{font-size:16px}.lbl small{display:block;color:var(--muted);font-size:12px}
+  .bar{flex:0 0 90px;height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+  .bar > i{display:block;height:100%;background:var(--blue)}
+  .note{color:var(--muted);font-size:13px;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Ranqueador semântico — demo</h1>
+  <p class="sub">Digite uma intenção. O ranqueador (TF-IDF de n-gramas, <code>extension/tfidf.js</code>) ordena os <b>links reais da PUC</b> por similaridade — tudo no navegador, sem modelo nem servidor. Sinônimos puros (ex.: <i>advogado</i> → Direito) são o limite deste ranqueador leve; a fase 2 (embeddings neurais, 68%) resolve.</p>
+  <div class="card">
+    <input id="q" placeholder="ex.: quero ser advogado" autocomplete="off" aria-label="intenção">
+    <div class="chips" id="chips"></div>
+    <ol id="out"></ol>
+    <p class="note" id="note"></p>
+  </div>
+</div>
+<script>
+  // Amostra de elementos reais (texto visível + contexto de aria-label/heading/href).
+  const ELEMENTOS = [
+    {t:"Direito", c:"leis ciências jurídicas curso direito"},
+    {t:"Medicina", c:"saúde curso medicina"},
+    {t:"Medicina Veterinária", c:"animais saúde animal curso medicina veterinaria"},
+    {t:"Odontologia", c:"dentes saúde bucal curso odontologia"},
+    {t:"Psicologia", c:"saúde mental terapia curso psicologia"},
+    {t:"Cibersegurança", c:"segurança da informação digital curso ciberseguranca"},
+    {t:"Ciência de dados e Inteligência Artificial", c:"ia machine learning dados curso"},
+    {t:"Engenharia de Software", c:"programação sistemas aplicativos curso engenharia software"},
+    {t:"Gastronomia", c:"cozinha culinária chef curso gastronomia"},
+    {t:"Design de Games", c:"jogos videogames curso design de games"},
+    {t:"Arquitetura e Urbanismo", c:"projetar casas prédios cidades curso arquitetura urbanismo"},
+    {t:"Nutrição", c:"dietas alimentação curso nutricao"},
+    {t:"Enfermagem", c:"cuidar pacientes saúde curso enfermagem"},
+    {t:"Jornalismo", c:"notícias imprensa repórter curso jornalismo"},
+    {t:"Manual do Candidato", c:"regras edital datas prova critérios manual do candidato"},
+    {t:"Bolsa Vestibular Social", c:"bolsa de estudo desconto mensalidade financiamento"},
+    {t:"Acessar Cartão de Confirmação de Inscrição", c:"onde é a prova local sala endereço"},
+    {t:"Central de Atendimento ao Aluno", c:"fale conosco atendimento contato dúvidas"},
+    {t:"FIES", c:"financiamento estudantil pagar depois financiar faculdade"},
+  ];
+  const docs = ELEMENTOS.map(e => `${e.t} ${e.c}`);
+  const EXEMPLOS = ["quero ser advogado","curso para cuidar de animais","trabalhar com segurança digital",
+    "ser chef de cozinha","regras da prova","bolsa de estudo com desconto","onde vai ser minha prova"];
+
+  const $ = (id) => document.getElementById(id);
+  function render(query) {
+    if (!query.trim()) { $("out").innerHTML = ""; $("note").textContent = ""; return; }
+    const ranked = ReiaRank.rank(query, docs);           // <- ranqueador real da extensão
+    const max = ranked[0].score || 1;
+    $("out").innerHTML = ranked.slice(0, 5).map((r, k) => {
+      const e = ELEMENTOS[r.i], pct = Math.round(100 * r.score / max);
+      return `<li class="${k===0?'top':''}"><span class="pos">${k+1}</span>
+        <span class="lbl"><b>${e.t}</b><small>${e.c}</small></span>
+        <span class="bar"><i style="width:${pct}%"></i></span></li>`;
+    }).join("");
+    $("note").textContent = `Top-1: "${ELEMENTOS[ranked[0].i].t}" — ${ReiaRank ? 'ranqueado por ' : ''}TF-IDF char-ngram, 100% no navegador.`;
+  }
+  $("chips").innerHTML = EXEMPLOS.map(e => `<button class="chip">${e}</button>`).join("");
+  $("chips").onclick = (ev) => { if (ev.target.classList.contains("chip")) { $("q").value = ev.target.textContent; render($("q").value); } };
+  $("q").addEventListener("input", (e) => render(e.target.value));
+  $("q").value = "trabalhar com segurança digital"; render($("q").value);
+</script>
+</body>
+</html>

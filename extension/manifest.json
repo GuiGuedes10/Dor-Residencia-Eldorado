@@ -7,7 +7,7 @@
   "content_scripts": [
     {
       "matches": ["https://*/*", "http://*/*"],
-      "js": ["nn.js", "content.js"],
+      "js": ["nn.js", "tfidf.js", "content.js"],
       "run_at": "document_idle"
     }
   ],

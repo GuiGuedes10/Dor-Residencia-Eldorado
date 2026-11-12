@@ -52,20 +52,28 @@
       const k = norm(text);
       if (seen.has(k)) continue;
       seen.add(k);
-      out.push({ el: a, text, href: a.href, inNav: !!a.closest('nav, header') });
+      // contexto p/ ranqueamento semântico: aria-label, title, heading da seção e caminho da URL
+      const aria = a.getAttribute('aria-label') || '';
+      const title = a.getAttribute('title') || '';
+      let heading = '';
+      try { heading = (a.closest('section, article, nav, header, main, li, div')?.querySelector('h1, h2, h3')?.innerText || '').slice(0, 80); } catch {}
+      let pathWords = '';
+      try { pathWords = decodeURIComponent(new URL(a.href).pathname).replace(/[^a-z0-9]+/gi, ' '); } catch {}
+      const busca = `${text} ${aria} ${title} ${heading} ${pathWords}`.replace(/\s+/g, ' ').trim();
+      out.push({ el: a, text, href: a.href, inNav: !!a.closest('nav, header'), busca });
     }
     return out;
   }
+  // Ranqueia por embeddings leves (TF-IDF char-ngram, ReiaRank) — semântico e on-device.
   function rankLinks(query) {
+    const links = pageLinks();
     const t = topicOf(query);
-    const q = new Set(tokens(query + ' ' + (t && t.confidence > 0.5 ? SINONIMOS[t.topic] || '' : '')));
-    const scored = pageLinks().map((l) => {
-      const alvo = tokens(l.text + ' ' + decodeURIComponent(new URL(l.href).pathname));
-      const hit = alvo.filter((w) => q.has(w)).length;
-      return { ...l, score: hit / Math.sqrt(alvo.length || 1) + (l.inNav ? 0.05 : 0) };
-    });
-    scored.sort((a, b) => b.score - a.score);
-    return { top: scored.slice(0, 4), topic: t };
+    if (!links.length) return { top: [], topic: t };
+    const q = query + ' ' + (t && t.confidence > 0.5 ? SINONIMOS[t.topic] || '' : '');
+    const ranked = ReiaRank.rank(q, links.map((l) => l.busca))
+      .map((r) => ({ ...r, score: r.score + (links[r.i].inNav ? 0.02 : 0) }))
+      .sort((a, b) => b.score - a.score);
+    return { top: ranked.slice(0, 4).map((r) => links[r.i]), topic: t };
   }
 
   // ---------- interface (Shadow DOM) ----------

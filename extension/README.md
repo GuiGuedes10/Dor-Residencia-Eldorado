@@ -22,6 +22,21 @@ permissão `storage`.
 
 > A extensão **indica e orienta** — ela nunca clica nem envia nada por você.
 
+## Como ela escolhe o link (ranqueamento semântico)
+
+Quando você diz o que procura, a extensão ordena os links da página por **similaridade de
+significado**, não por palavras iguais — com um ranqueador **TF-IDF de n-gramas de caractere**
+([`tfidf.js`](tfidf.js)) que roda **no navegador, sem modelo nem download**. Cada link é
+representado por `texto + aria-label + title + heading da seção + caminho da URL`, o que resolve
+botões com rótulo pobre ("Saiba mais").
+
+Validado com links reais da PUC ([`../prototipos/classificador-elementos/`](../prototipos/classificador-elementos/)):
+**56% de acerto no topo‑1 vs 36% da interseção de palavras** (68% no top‑3). Demo interativa:
+[`../docs/extension-ranker-demo.html`](../docs/extension-ranker-demo.html).
+
+> Sinônimos puros (*advogado* → Direito) são o limite deste ranqueador leve. A **fase 2** é trocá‑lo
+> por **embeddings neurais** (sentence-transformers, 68%) via Transformers.js, mantendo tudo on-device.
+
 ## As duas redes neurais
 
 ### 1. Classificador de tópicos — `models/intent.json`
@@ -51,7 +66,8 @@ Nada sai do navegador; dá para **Exportar dados (JSON)** e **Apagar dados** qua
 | Arquivo | O que faz |
 |---|---|
 | `manifest.json` | Manifest V3; permissões, content scripts, página de opções |
-| `content.js` | Modal acessível + ranking de links + modo guia (halo) |
+| `content.js` | Modal acessível + ranqueamento semântico dos links + modo guia (halo) |
+| `tfidf.js` | Ranqueador semântico on-device (TF-IDF char-ngram, `ReiaRank.rank`) |
 | `nn.js` | Rede do halo (`features`/`predict`/`train`) e a **escala de cor** `color(w)` |
 | `train.html` · `train.js` | Coleta e treino da rede do halo |
 | `models/intent.json` | Pesos do classificador de tópicos |
