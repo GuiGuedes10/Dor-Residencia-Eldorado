@@ -34,12 +34,12 @@ Validado com links reais da PUC ([`../prototipos/classificador-elementos/`](../p
 **56% de acerto no topo‑1 vs 36% da interseção de palavras** (68% no top‑3). Demo interativa:
 [`../docs/extension-ranker-demo.html`](../docs/extension-ranker-demo.html).
 
-> Sinônimos puros (*advogado* → Direito) são o limite do ranqueador leve. A **fase 2** (já implementada,
-> *experimental*) refina com **embeddings neurais** (`sentence-transformers` via **Transformers.js** num
-> documento offscreen, 68% no protótipo): o TF-IDF aparece na hora e, quando o modelo responde, as opções
-> são **reordenadas**. O modelo (~100 MB) é baixado do HF na 1ª vez e fica em cache; se não estiver pronto,
-> continua no TF-IDF — nada quebra. **Ainda precisa de teste no Chrome** (não dá para validar o modelo fora
-> do navegador). Para publicar na loja, empacote o Transformers.js localmente (lojas não aceitam código remoto).
+> Sinônimos puros (*advogado* → Direito) são o limite do ranqueador leve. A **fase 2** (*experimental*)
+> refina com **embeddings neurais** (`sentence-transformers` via **Transformers.js** num documento offscreen,
+> 68% no protótipo): o TF-IDF aparece na hora e, quando o modelo responde, as opções são **reordenadas**.
+> Para habilitar: `sh vendor/baixar.sh` (baixa a lib + ONNX Runtime, ~22 MB, não versionados) e recarregue a
+> extensão; o modelo (~100 MB) baixa do HF na 1ª consulta. Sem isso, fica no TF-IDF — nada quebra. Ainda
+> precisa de teste no Chrome; para a loja, versione os arquivos de `vendor/` (lojas não aceitam código remoto).
 
 ## As duas redes neurais
 

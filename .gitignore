@@ -90,3 +90,8 @@ voice-nav-cli/data/*.json
 # Áudios de captura temporários
 *.wav
 !tests/**/*.wav
+
+# Fase 2 da extensão: Transformers.js + ONNX Runtime (baixados por extension/vendor/baixar.sh, ~22 MB)
+extension/vendor/*.js
+extension/vendor/*.mjs
+extension/vendor/*.wasm

@@ -6,8 +6,9 @@
   "permissions": ["storage", "offscreen"],
   "background": { "service_worker": "background.js" },
   "content_security_policy": {
-    "extension_pages": "script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; object-src 'self'; connect-src 'self' https://cdn.jsdelivr.net https://huggingface.co https://*.hf.co https://cdn-lfs.huggingface.co https://cdn-lfs-us-1.huggingface.co"
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
   },
+  "host_permissions": ["https://huggingface.co/*", "https://*.hf.co/*", "https://cdn.jsdelivr.net/*"],
   "content_scripts": [
     {
       "matches": ["https://*/*", "http://*/*"],
