@@ -129,6 +129,17 @@ def gerar_pares(els):
     return out
 
 
+def carregar_split(nome, els):
+    """Carrega um split real (dataset_treino.json / dataset_teste.json) como (intenção, índice)."""
+    casos = json.loads((AQUI / nome).read_text(encoding="utf-8")).get("casos", [])
+    out = []
+    for c in casos:
+        i = idx_por_slug(els, c["alvo"])
+        if i is not None:
+            out.append((c["intencao"], i))
+    return out
+
+
 def carregar_reais(els):
     """Pares REAIS (dataset_pesquisa.json) como teste externo — difícil (sinônimos puros).
     Ressalva: há overlap de mapeamento com a augmentation, então o número fine-tunado
@@ -170,26 +181,23 @@ def main():
 
     els = carregar_elementos()
     el_texts = [e["rich"] for e in els]
-    pares = gerar_pares(els)
-    random.shuffle(pares)
-    corte = int(len(pares) * 0.2)
-    teste, treino = pares[:corte], pares[corte:]
-    print(f"Elementos: {len(els)} | pares: {len(pares)} | treino: {len(treino)} | teste: {len(teste)}\n")
+    # Experimento LIMPO: treino e teste são pares REAIS disjuntos (montar_dataset.py).
+    treino = carregar_split("dataset_treino.json", els)
+    teste = carregar_split("dataset_teste.json", els)
+    if not treino or not teste:
+        print("Rode antes: python3 montar_dataset.py  (gera dataset_treino/teste.json)")
+        return
+    print(f"Elementos: {len(els)} | treino REAL: {len(treino)} | teste REAL: {len(teste)}\n")
 
     print(f"Carregando modelo base: {MODELO_BASE} ...")
     model = SentenceTransformer(MODELO_BASE)
 
-    reais = carregar_reais(els)
-    print("(aug = 20% held-out dos pares aumentados [fácil] · real = dataset_pesquisa.json [difícil, com overlap])\n")
-
     def report(tag):
         a1, a3 = success_at_k(model, teste, el_texts)
-        rr = success_at_k(model, reais, el_texts) if reais else None
-        extra = f"  |  real succ@1={rr[0]:.0%} succ@3={rr[1]:.0%}" if rr else ""
-        print(f"{tag:12s}: aug succ@1={a1:.0%} succ@3={a3:.0%}{extra}")
-        return a1, rr[0] if rr else None
+        print(f"{tag:12s}: succ@1={a1:.0%}  succ@3={a3:.0%}")
+        return a1
 
-    z_aug, z_real = report("ZERO-SHOT")
+    z = report("ZERO-SHOT")
 
     # Loop de treino manual (sem depender da lib `datasets`), com a mesma loss contrastiva.
     import torch
@@ -213,9 +221,8 @@ def main():
             optimizer.step()
     model.eval()
     print()
-    f_aug, f_real = report("FINE-TUNADO")
-
-    print(f"\nΔ succ@1 (aug): {f_aug - z_aug:+.0%}" + (f"  |  Δ succ@1 (real): {f_real - z_real:+.0%}" if reais else ""))
+    f = report("FINE-TUNADO")
+    print(f"\nΔ succ@1 (teste real): {f - z:+.0%}")
 
 
 if __name__ == "__main__":

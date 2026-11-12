@@ -35,7 +35,7 @@ Saída:
 | [`dataset.json`](dataset.json) | 20 casos curados à mão (sanity-check). |
 | [`REFERENCIAS.md`](REFERENCIAS.md) | Datasets/papers da pesquisa **verificados na web**, com status e licenças. |
 | [`fine_tune.py`](fine_tune.py) | Experimento de fine-tune (`MultipleNegativesRankingLoss`, loop manual): zero-shot vs adaptado. |
-| [`montar_dataset.py`](montar_dataset.py) · [`coleta_template.csv`](coleta_template.csv) | Pipeline de coleta: valida pares reais contra o corpus e gera o split treino/teste. |
+| [`montar_dataset.py`](montar_dataset.py) · [`normalizar_coleta.py`](normalizar_coleta.py) · [`coleta.csv`](coleta.csv) | Pipeline de coleta: normaliza a pesquisa web → corpus PUC, valida e gera o split treino/teste. |
 
 ## Dados — reais, da web
 
@@ -74,21 +74,26 @@ no lugar do ranking lexical (idealmente um encoder pt-BR fine-tunado — ver [RE
 
 ## Fine-tune (experimento)
 
-[`fine_tune.py`](fine_tune.py) adapta o encoder ao domínio com `MultipleNegativesRankingLoss`,
-usando *data augmentation ancorada* (nome do curso + profissão/ação → elemento) e split 80/20:
+[`fine_tune.py`](fine_tune.py) adapta o encoder ao domínio com `MultipleNegativesRankingLoss`
+(loop manual, sem depender de `datasets`).
+
+**① Validação LIMPA (a que vale)** — treino e teste são **100 pares reais** da coleta
+(`montar_dataset.py`), disjuntos, **sem overlap**:
 
 | | succ@1 | succ@3 |
 |---|---|---|
-| zero-shot (teste aumentado, limpo) | 81% | 94% |
-| **fine-tunado (teste aumentado)** | **97%** | **100%** |
-| zero-shot (pares reais, difícil) | 68% | 84% |
-| fine-tunado (pares reais) | 84%\* | 92%\* |
+| zero-shot | 40% | 45% |
+| **fine-tunado** | **65%** | **80%** |
 
-**+16 pontos de succ@1** no teste limpo (held-out 80/20). \*No teste de **pares reais** o ganho é
-**otimista**: há overlap de mapeamento entre a augmentation e o teste (ex.: *advogado→Direito* em
-ambos), então serve para **direção**, não como medida limpa. Conclusão: **adaptar o encoder ao
-domínio vale muito** — o passo seguinte é um **conjunto rotulado real maior** (voz/paráfrases) para
-validar sem overlap, e aí exportar o modelo para ONNX e plugar na extensão (Fase 2).
+**+25 pontos de succ@1** (e +35 de succ@3) num teste real held-out — com só 80 pares de treino.
+É a evidência sólida: **adaptar o encoder ao domínio funciona**, sem vazamento.
+
+**② Augmentation (exploratório)** — treino com *data augmentation ancorada* e split do próprio
+conjunto aumentado: zero-shot 81% → fine-tunado 97% succ@1. Nos pares reais esse número fica
+otimista (overlap de mapeamento), por isso o experimento ① é o que conta.
+
+Próximo: mais pares reais ainda (a coleta é repetível) e **exportar o modelo para ONNX** para
+plugar na extensão (Fase 2), fechando o ciclo pesquisa → dado → modelo → produto.
 
 ## Coletar mais dados reais (pipeline)
 
@@ -102,6 +107,10 @@ Pipeline repetível:
 3. **Meça:** `python3 avaliar.py dataset_teste.json` e re-rode o `fine_tune.py`.
 
 Mire **100+ pares** variados por abordagem — quanto mais real e diverso, mais confiável o número.
+**Já aplicado:** [`coleta.csv`](coleta.csv) = 75 pares da pesquisa web (Quero Bolsa, Guia do Estudante,
+Reddit r/enem) normalizados ao corpus PUC + 25 da pesquisa anterior = **100 pares reais**. O
+[`normalizar_coleta.py`](normalizar_coleta.py) mapeia os alvos genéricos (ENEM) para os nossos e
+descarta o que não tem elemento (isenção, SISU, matrícula — fora do portal PUC).
 
 ### Prompt para o Gemini (colher frases reais)
 
