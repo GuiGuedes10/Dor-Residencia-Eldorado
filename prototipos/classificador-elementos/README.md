@@ -61,11 +61,14 @@ pip install sentence-transformers   # adiciona a coluna de embeddings neurais (~
 |---|---|---|---|
 | baseline lexical (`rankLinks`) | 36% | 44% | 0.42 |
 | TF-IDF (palavras) | 36% | 36% | 0.40 |
-| **TF-IDF (palavras + char n-gram)** | **56%** | **68%** | **0.63** |
-| sentence-transformers | _(em medição — instale a lib)_ | | |
+| TF-IDF (palavras + char n-gram) | 56% | 68% | 0.63 |
+| **sentence-transformers** (MiniLM multilíngue) | **68%** | **84%** | **0.77** |
 
-Leitura: char n-gram quase **dobra** o baseline e acerta **68% no top-3**. Os ~11 erros de top-1
-são sinônimos puros (advogado→Direito, dentista→Odontologia) — o trabalho do `sentence-transformers`.
+Leitura: os **embeddings neurais vencem** — quase **dobram** o baseline no succ@1 e acertam
+**84% no top-3** (MRR 0.77). A maioria dos 8 erros de top-1 são **quase-acertos** (o alvo caiu em 2º)
+ou rótulos discutíveis — ex.: para _"baixar provas antigas e gabaritos"_ o modelo escolheu
+**"Provas Anteriores"**, tão ou mais correta que o alvo anotado. Conclusão: **vale adotar embeddings**
+no lugar do ranking lexical (idealmente um encoder pt-BR fine-tunado — ver [REFERENCIAS.md](REFERENCIAS.md)).
 
 ## Próximos passos
 
