@@ -15,10 +15,18 @@ async function getExtractor() {
   if (!extractorPromise) {
     extractorPromise = (async () => {
       const { pipeline, env } = await import(chrome.runtime.getURL('vendor/transformers.min.js'));
-      env.allowLocalModels = false;                                     // modelo vem do HF Hub (cache local)
       env.backends.onnx.wasm.numThreads = 1;                            // 1 thread: dispensa cross-origin isolation
       env.backends.onnx.wasm.wasmPaths = chrome.runtime.getURL('vendor/'); // ORT WASM local (self)
-      return pipeline('feature-extraction', MODELO, { quantized: true });
+      // 1) tenta o modelo fine-tunado no domínio (se vendorado em vendor/modelo/reia-finetunado/)
+      try {
+        env.allowLocalModels = true;
+        env.localModelPath = chrome.runtime.getURL('vendor/modelo/');
+        return await pipeline('feature-extraction', 'reia-finetunado', { quantized: true });
+      } catch (_) {
+        // 2) fallback: modelo multilíngue genérico do HF Hub (Fase 2 padrão, já validada)
+        env.allowLocalModels = false;
+        return pipeline('feature-extraction', MODELO, { quantized: true });
+      }
     })();
   }
   return extractorPromise;

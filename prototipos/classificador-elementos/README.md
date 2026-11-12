@@ -36,6 +36,7 @@ Saída:
 | [`REFERENCIAS.md`](REFERENCIAS.md) | Datasets/papers da pesquisa **verificados na web**, com status e licenças. |
 | [`fine_tune.py`](fine_tune.py) | Experimento de fine-tune (`MultipleNegativesRankingLoss`, loop manual): zero-shot vs adaptado. |
 | [`montar_dataset.py`](montar_dataset.py) · [`normalizar_coleta.py`](normalizar_coleta.py) · [`coleta.csv`](coleta.csv) | Pipeline de coleta: normaliza a pesquisa web → corpus PUC, valida e gera o split treino/teste. |
+| [`exportar_onnx.py`](exportar_onnx.py) | Treina, salva e exporta o modelo para **ONNX quantizado** (formato da extensão) + verifica. |
 
 ## Dados — reais, da web
 
@@ -94,6 +95,32 @@ otimista (overlap de mapeamento), por isso o experimento ① é o que conta.
 
 Próximo: mais pares reais ainda (a coleta é repetível) e **exportar o modelo para ONNX** para
 plugar na extensão (Fase 2), fechando o ciclo pesquisa → dado → modelo → produto.
+
+## Deploy do modelo na extensão (ONNX)
+
+[`exportar_onnx.py`](exportar_onnx.py) treina nos pares reais, salva o modelo torch e exporta um
+ONNX **quantizado int8** (`onnx/model_qint8_arm64.onnx`, ~113 MB) — o formato que a extensão carrega.
+A verificação roda em **CPUExecutionProvider** (no macOS o CoreML EP falha em nós do MiniLM; é só
+artefato local — a extensão usa ORT **Web/WASM**, não CoreML):
+
+| modelo | succ@1 | succ@3 |
+|---|---|---|
+| torch fine-tunado | 65% | 75% |
+| **ONNX int8** (o que vai p/ a extensão) | **60%** | **75%** |
+
+A quantização int8 custou **−5 pp no succ@1** (1 caso em 20) e manteve o **succ@3 idêntico** — perda
+esperada, aceitável para rodar on-device.
+
+**Passos:**
+1. **Exporte:** `python3 exportar_onnx.py` (requer `pip install "optimum[onnxruntime]" onnx httpx`).
+2. **Vendorize:** copie `modelo-finetunado/` → `extension/vendor/modelo/reia-finetunado/` e
+   **renomeie** `onnx/model_qint8_arm64.onnx` → `onnx/model_quantized.onnx` (nome que o
+   Transformers.js procura com `{ quantized: true }`). ~113 MB, não versionado (gitignored).
+3. **Recarregue** a extensão. O [`offscreen.js`](../../extension/offscreen.js) já **tenta o modelo
+   local primeiro** (`vendor/modelo/reia-finetunado/`) e, se ausente, cai no modelo genérico do HF.
+
+> ⚠️ O carregamento do modelo custom na extensão **precisa de teste no Chrome** — o export e o
+> success@k são validados em Python, mas o browser é o seu.
 
 ## Coletar mais dados reais (pipeline)
 
